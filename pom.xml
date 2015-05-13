@@ -16,30 +16,14 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
 
-   <licenses>
-      <license>
-         <name>GNU General Public License {GPL} v3</name>
-         <url>http://www.gnu.org/licenses/gpl.txt</url>
-      </license>
-   </licenses>
-
-   <developers>
-      <developer>
-         <id>ribesg</id>
-         <name>Ribesg</name>
-         <email>ribesg@gmail.com</email>
-         <url>http://www.ribesg.fr/</url>
-         <roles>
-            <role>Main contributor</role>
-         </roles>
-         <timezone>+1</timezone>
-      </developer>
-   </developers>
-
    <repositories>
       <repository>
          <id>bukkit-repo</id>
          <url>http://repo.bukkit.org/content/groups/public/</url>
+      </repository>
+      <repository>
+         <id>plugin-metrics</id>
+         <url>http://repo.mcstats.org/content/repositories/public</url>
       </repository>
       <repository>
          <id>project-local-repo</id>
@@ -67,6 +51,11 @@
          <groupId>org.objenesis</groupId>
          <artifactId>objenesis</artifactId>
          <version>2.1</version>
+      </dependency>
+      <dependency>
+         <groupId>org.mcstats.bukkit</groupId>
+         <artifactId>metrics</artifactId>
+         <version>R7</version>
       </dependency>
 
       <dependency>
@@ -143,8 +132,24 @@
                         <includes>
                            <include>com.tonicsystems:jarjar</include>
                            <include>org.objenesis:objenesis</include>
+                           <include>org.mcstats.bukkit:metrics</include>
                         </includes>
                      </artifactSet>
+                     <relocations>
+                        <relocation>
+                           <pattern>com.tonicsystems</pattern>
+                           <shadedPattern>fr.ribesg.bukkit.pure.shaded.com.tonicsystems</shadedPattern>
+                        </relocation>
+                        <relocation>
+                           <pattern>org.objenesis</pattern>
+                           <shadedPattern>fr.ribesg.bukkit.pure.shaded.org.objenesis</shadedPattern>
+                        </relocation>
+                        <relocation>
+                           <pattern>org.mcstats</pattern>
+                           <shadedPattern>fr.ribesg.bukkit.pure.shaded.org.mcstats</shadedPattern>
+                        </relocation>
+                     </relocations>
+                     <minimizeJar>true</minimizeJar>
                   </configuration>
                </execution>
             </executions>

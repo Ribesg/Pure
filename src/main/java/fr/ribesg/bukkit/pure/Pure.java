@@ -1,14 +1,11 @@
 package fr.ribesg.bukkit.pure;
 
-import fr.ribesg.bukkit.pure.util.HashUtils;
 import org.bukkit.World.Environment;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,33 +15,6 @@ import java.util.logging.Logger;
  * @author Ribesg
  */
 public final class Pure extends JavaPlugin {
-
-    /**
-     * Download, remap and hash all known MC version.
-     */
-    public static void main(final String[] args) throws Throwable {
-        final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
-        for (final MCVersion v : MCVersion.values()) {
-            executor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        MCJarHandler.require(v, false);
-                    } catch (final IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            Thread.sleep(250);
-        }
-        executor.shutdown();
-        executor.awaitTermination(5, TimeUnit.MINUTES);
-        try (final DirectoryStream<Path> s = Files.newDirectoryStream(Paths.get("jars"))) {
-            for (final Path p : s) {
-                Pure.logger().info(p.getFileName() + "\n\t" + HashUtils.hashSha256(p));
-            }
-        }
-    }
 
     /**
      * Static Pure Logger accessor.
@@ -75,14 +45,21 @@ public final class Pure extends JavaPlugin {
      */
     private static Pure instance = null;
 
+    /**
+     * Metrics
+     */
+    private PureMetrics metrics;
+
     @Override
     public void onEnable() {
         Pure.instance = this;
+        this.metrics = new PureMetrics(this);
     }
 
     @Override
     public void onDisable() {
         Pure.instance = null;
+        this.metrics = null;
     }
 
     @Override
@@ -125,7 +102,9 @@ public final class Pure extends JavaPlugin {
         }
 
         try {
-            return version.getChunkGenerator(environment);
+            final ChunkGenerator generator = version.getChunkGenerator(environment);
+            this.metrics.newGenerator(version, generator);
+            return generator;
         } catch (final IllegalStateException e) {
             Pure.logger().log(Level.SEVERE, "Failed to get Chunk Generator for version " + version, e);
             return null;
