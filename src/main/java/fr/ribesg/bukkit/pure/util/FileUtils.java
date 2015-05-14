@@ -120,13 +120,13 @@ public final class FileUtils {
                 if (!entryName.contains("META-INF")) {
                     if (entry.isDirectory()) {
                         writer.write("rule " + entryName.replace('/', '.') + "* " + prefix + ".@0\n");
-                    } else if (!entryName.contains("/")) {
+                    } else if (!entryName.contains("/") || entryName.startsWith("net/minecraft/server")) {
                         if (entryName.endsWith(".class")) {
-                            final String nameWithoutClass = entryName.replace(".class", "");
-                            if (nameWithoutClass.contains(".")) {
-                                writer.write("rule " + nameWithoutClass + " " + prefix + ".@0\n");
+                            final String filteredName = entryName.replace(".class", "").replace('/', '.');
+                            if (filteredName.contains(".")) {
+                                writer.write("rule " + filteredName + " " + prefix + ".@0\n");
                             } else {
-                                writer.write("rule " + nameWithoutClass + " " + prefix + ".net.minecraft.server.@0\n");
+                                writer.write("rule " + filteredName + " " + prefix + ".net.minecraft.server.@0\n");
                             }
                         }
                     }
@@ -145,8 +145,12 @@ public final class FileUtils {
             });
             Pure.logger().fine("Done!");
 
-            // Remove META-INF folder in final jar
-            FileUtils.removePrefixedBy("META-INF", outputJar);
+            // Remove junk in final jar
+            FileUtils.removePrefixedBy(
+                outputJar,
+                "META-INF", // All
+                "null"      // Alpha 0.2.8
+            );
 
             if (checkHash) {
                 final String wantedHash = version.getRemappedHash();
@@ -170,14 +174,18 @@ public final class FileUtils {
 
     /**
      * Removes any file in the provided zip file whose path starts with
-     * provided prefix.
+     * one of the provided prefixes.
      *
-     * @param prefix the prefix
-     * @param zip    the file
+     * @param prefixes the prefixes
+     * @param zip      the file
      *
      * @throws IOException if anything goes wrong
      */
-    public static void removePrefixedBy(final String prefix, final Path zip) throws IOException {
+    public static void removePrefixedBy(final Path zip, final String... prefixes) throws IOException {
+        if (prefixes.length == 0) {
+            return; // Nothing to do!
+        }
+
         // Rename original file to tmp file
         final Path tmp = Paths.get(zip.toAbsolutePath().toString() + ".tmp");
         Files.move(zip, tmp, StandardCopyOption.REPLACE_EXISTING);
@@ -192,12 +200,15 @@ public final class FileUtils {
             ZipEntry entry;
             while ((entry = in.getNextEntry()) != null) {
                 final String entryName = entry.getName();
-                if (!entryName.startsWith(prefix)) {
-                    // Create entry in new file
-                    out.putNextEntry(new ZipEntry(entry));
-                    // Copy content of entry to new file
-                    while ((read = in.read(buffer)) > 0) {
-                        out.write(buffer, 0, read);
+                for (final String prefix : prefixes) {
+                    if (!entryName.startsWith(prefix)) {
+                        // Create entry in new file
+                        out.putNextEntry(new ZipEntry(entry));
+                        // Copy content of entry to new file
+                        while ((read = in.read(buffer)) > 0) {
+                            out.write(buffer, 0, read);
+                        }
+                        break;
                     }
                 }
             }
