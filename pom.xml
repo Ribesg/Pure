@@ -14,6 +14,7 @@
 
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <kotlin.version>0.11.91.1</kotlin.version>
    </properties>
 
    <repositories>
@@ -32,6 +33,16 @@
    </repositories>
 
    <dependencies>
+      <dependency>
+         <groupId>org.jetbrains.kotlin</groupId>
+         <artifactId>kotlin-stdlib</artifactId>
+         <version>${kotlin.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jetbrains.kotlin</groupId>
+         <artifactId>kotlin-reflect</artifactId>
+         <version>${kotlin.version}</version>
+      </dependency>
       <dependency>
          <groupId>org.bukkit</groupId>
          <artifactId>bukkit</artifactId>
@@ -123,6 +134,27 @@
       <defaultGoal>clean package</defaultGoal>
       <plugins>
          <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+               <execution>
+                  <id>compile</id>
+                  <phase>process-sources</phase>
+                  <goals>
+                     <goal>compile</goal>
+                  </goals>
+                  <configuration>
+                     <sourceDirs>
+                        <source>src/main/java</source>
+                        <source>src/main/kotlin</source>
+                        <source>src/main/resources</source>
+                     </sourceDirs>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.1</version>
             <configuration>
@@ -143,12 +175,17 @@
                   <configuration>
                      <artifactSet>
                         <includes>
+                           <include>org.jetbrains.kotlin:*</include>
                            <include>com.tonicsystems:jarjar</include>
                            <include>org.objenesis:objenesis</include>
                            <include>org.mcstats.bukkit:metrics</include>
                         </includes>
                      </artifactSet>
                      <relocations>
+                        <relocation>
+                           <pattern>org.jetbrains.kotlin</pattern>
+                           <shadedPattern>fr.ribesg.bukkit.pure.shaded.org.jetbrains.kotlin</shadedPattern>
+                        </relocation>
                         <relocation>
                            <pattern>com.tonicsystems</pattern>
                            <shadedPattern>fr.ribesg.bukkit.pure.shaded.com.tonicsystems</shadedPattern>
