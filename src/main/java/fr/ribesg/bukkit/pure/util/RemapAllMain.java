@@ -34,7 +34,7 @@ public final class RemapAllMain {
         executor.awaitTermination(5, TimeUnit.MINUTES);
         try (final DirectoryStream<Path> s = Files.newDirectoryStream(Paths.get("jars"))) {
             for (final Path p : s) {
-                Pure.logger().info(p.getFileName() + "\n\t" + HashUtils.hashSha256(p));
+                Pure.logger().info(HashUtils.hashSha256(p) + " - " + p.getFileName());
             }
         }
     }

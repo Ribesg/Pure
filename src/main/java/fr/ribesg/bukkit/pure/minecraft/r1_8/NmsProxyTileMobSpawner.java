@@ -1,17 +1,18 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_8;
 
-import r1_8.net.minecraft.server.*;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
+import r1_8.net.minecraft.server.*;
 
 /**
+ * @author coelho
  * @author Ribesg
  */
 public class NmsProxyTileMobSpawner extends bdg {
 
     private final CreatureSpawner creatureSpawner;
 
-    public NmsProxyTileMobSpawner(CreatureSpawner creatureSpawner) {
+    public NmsProxyTileMobSpawner(final CreatureSpawner creatureSpawner) {
         this.creatureSpawner = creatureSpawner;
     }
 

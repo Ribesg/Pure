@@ -1,10 +1,10 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_7_10;
 
 import fr.ribesg.bukkit.pure.Pure;
-import r1_7_10.net.minecraft.server.*;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.*;
+import r1_7_10.net.minecraft.server.*;
 
 /**
  * @author coelho

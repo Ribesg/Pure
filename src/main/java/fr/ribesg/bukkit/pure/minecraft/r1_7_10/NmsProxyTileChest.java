@@ -1,13 +1,13 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_7_10;
 
 import fr.ribesg.bukkit.pure.Pure;
-import r1_7_10.net.minecraft.server.*;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import r1_7_10.net.minecraft.server.*;
 
 import java.util.logging.Level;
 

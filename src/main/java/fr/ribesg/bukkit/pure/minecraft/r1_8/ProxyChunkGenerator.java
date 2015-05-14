@@ -1,12 +1,13 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_8;
 
 import fr.ribesg.bukkit.pure.Pure;
-import fr.ribesg.bukkit.pure.util.*;
-import r1_8.net.minecraft.server.*;
+import fr.ribesg.bukkit.pure.util.BiomeUtils;
+import fr.ribesg.bukkit.pure.util.ReflectionUtils;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
+import r1_8.net.minecraft.server.*;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -43,7 +44,7 @@ public class ProxyChunkGenerator extends ChunkGenerator {
         this.nmsInitialized = false;
     }
 
-    @SuppressWarnings("deprecation" )
+    @SuppressWarnings("deprecation")
     @Override
     public short[][] generateExtBlockSections(final World world, final Random random, final int x, final int z, final BiomeGrid biomes) {
         // Make sure that we initialize the NMS part first. Should be called once.
@@ -108,7 +109,7 @@ public class ProxyChunkGenerator extends ChunkGenerator {
         return Collections.singletonList((BlockPopulator) this.blockPopulator);
     }
 
-    @SuppressWarnings("deprecation" )
+    @SuppressWarnings("deprecation")
     private boolean initializeNms(final World world) {
         try {
             /*
@@ -153,7 +154,7 @@ public class ProxyChunkGenerator extends ChunkGenerator {
             final bqo nmsWorldData = ReflectionUtils.newInstance(bqo.class);
             ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "b", world.getSeed());
             ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "c", are.a(world.getWorldType().getName()));
-            ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "d", "" ); // TODO Generator Options
+            ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "d", ""); // TODO Generator Options
             ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "v", world.canGenerateStructures());
             ReflectionUtils.set(nmsWorldData.getClass(), nmsWorldData, "z", vt.a(world.getDifficulty().getValue()));
             ReflectionUtils.set(nmsWorld.getClass().getSuperclass().getSuperclass(), nmsWorld, "x", nmsWorldData);
@@ -178,7 +179,7 @@ public class ProxyChunkGenerator extends ChunkGenerator {
              * - (bgd.a(aqu)) is the obfuscated method name of WorldProvider.registerWorld(World)
              * - (bgd.c())    is the obfuscated method name of WorldProvider.createChunkGenerator()
              */
-            @SuppressWarnings("deprecation" )
+            @SuppressWarnings("deprecation")
             final bgd nmsWorldProvider = bgd.a(this.environment.getId());
             nmsWorldProvider.a(nmsWorld);
             ReflectionUtils.set(nmsWorld.getClass().getSuperclass().getSuperclass(), nmsWorld, "t", nmsWorldProvider);

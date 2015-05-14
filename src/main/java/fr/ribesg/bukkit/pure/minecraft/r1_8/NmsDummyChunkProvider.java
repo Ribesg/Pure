@@ -5,6 +5,7 @@ import r1_8.net.minecraft.server.*;
 import java.util.List;
 
 /**
+ * @author coelho
  * @author Ribesg
  */
 public class NmsDummyChunkProvider implements bfe {

@@ -1,6 +1,3 @@
-[submodule "Pure-lib"]
-	path = Pure-lib
-	url = https://github.com/Ribesg/Pure-lib
 [submodule "lib"]
 	path = lib
 	url = https://github.com/Ribesg/Pure-lib

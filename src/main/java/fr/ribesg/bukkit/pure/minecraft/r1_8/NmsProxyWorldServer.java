@@ -1,10 +1,10 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_8;
 
 import fr.ribesg.bukkit.pure.Pure;
-import r1_8.net.minecraft.server.*;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.*;
+import r1_8.net.minecraft.server.*;
 
 /**
  * @author coelho
@@ -26,7 +26,7 @@ public class NmsProxyWorldServer extends qt {
 
     @SuppressWarnings("deprecation")
     @Override
-    public boolean a(dt arg0, bec nmsBlock, int arg2) {
+    public boolean a(final dt arg0, final bec nmsBlock, final int arg2) {
         final Block block = this.world.getBlockAt(arg0.n(), arg0.o(), arg0.p());
         block.setTypeId(atr.a(nmsBlock.c()));
         block.setData((byte) nmsBlock.c().c(nmsBlock));
@@ -35,34 +35,34 @@ public class NmsProxyWorldServer extends qt {
 
     @SuppressWarnings("deprecation")
     @Override
-    public atr c(dt arg0) {
+    public atr c(final dt arg0) {
         return atr.c(this.world.getBlockAt(arg0.n(), arg0.o(), arg0.p()).getTypeId());
     }
 
     @Override
-    public void d(dt arg0, atr arg1) {
+    public void d(final dt arg0, final atr arg1) {
         // NOP
     }
 
     @Override
-    public boolean d(wv arg0) {
+    public boolean d(final wv arg0) {
         return false; // NOP
     }
 
     @Override
-    public dt m(dt arg0) {
+    public dt m(final dt arg0) {
         return new dt(arg0.n(), this.world.getHighestBlockYAt(arg0.n(), arg0.p()), arg0.p());
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public bec p(dt arg0) {
+    public bec p(final dt arg0) {
         final Block block = this.world.getBlockAt(arg0.n(), arg0.o(), arg0.p());
         return atr.c(block.getTypeId()).a(block.getData());
     }
 
     @Override
-    public bcm s(dt arg0) {
+    public bcm s(final dt arg0) {
         final Block block = this.world.getBlockAt(arg0.n(), arg0.o(), arg0.p());
         if (block.getType() == Material.AIR) {
             return null;

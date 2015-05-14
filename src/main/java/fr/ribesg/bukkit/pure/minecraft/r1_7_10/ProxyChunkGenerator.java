@@ -3,12 +3,12 @@ package fr.ribesg.bukkit.pure.minecraft.r1_7_10;
 import fr.ribesg.bukkit.pure.Pure;
 import fr.ribesg.bukkit.pure.util.BiomeUtils;
 import fr.ribesg.bukkit.pure.util.ReflectionUtils;
-import r1_7_10.net.minecraft.server.*;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
+import r1_7_10.net.minecraft.server.*;
 
 import java.util.*;
 import java.util.logging.Level;

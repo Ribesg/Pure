@@ -23,6 +23,10 @@ public final class Pure extends JavaPlugin {
      */
     public static Logger logger() {
         if (Pure.instance == null) {
+            System.setProperty(
+                "java.util.logging.SimpleFormatter.format",
+                "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS] %4$s: %5$s%n"
+            );
             return Logger.getLogger("Pure");
         }
         return Pure.instance.getLogger();
@@ -81,6 +85,7 @@ public final class Pure extends JavaPlugin {
             version = MCVersion.valueOf(split[0].toUpperCase());
         } catch (final IllegalArgumentException e) {
             Pure.logger().severe("Invalid MC version String: " + split[0].toUpperCase());
+            this.suggestVersionString(split[0].toUpperCase());
             return null;
         }
         if (split.length > 1) {
@@ -108,6 +113,23 @@ public final class Pure extends JavaPlugin {
         } catch (final IllegalStateException e) {
             Pure.logger().log(Level.SEVERE, "Failed to get Chunk Generator for version " + version, e);
             return null;
+        }
+    }
+
+    private void suggestVersionString(final String version) {
+        final String withUnderscores = version.replace(".", "_");
+        try {
+            MCVersion.valueOf(withUnderscores);
+            Pure.logger().info("Did you mean '" + withUnderscores + "' ?");
+            return;
+        } catch (final IllegalArgumentException ignored) {
+            // Just continue
+        }
+        switch (withUnderscores) {
+            case "A1_2_6":
+                Pure.logger().info("You have to provide SERVER version, for Alpha 1.2.6 the correct version is 'A0_2_8'");
+            default:
+                Pure.logger().info("Find a list of all available versions on https://github.com/Ribesg/Pure !");
         }
     }
 }
