@@ -1,4 +1,4 @@
-# Pure
+# Pure [![Build Status](http://ci.ribesg.fr/job/Pure/badge/icon)](http://ci.ribesg.fr/job/Pure/)
 
 Pure is a World Generator Bukkit plugin.
 
