@@ -66,13 +66,13 @@ enum class MCVersion {
     )
 
     /**
-     * Minecraft 1.6.4 (2013-09-19) TODO
+     * Minecraft 1.6.4 (2013-09-19)
      */
     R1_6_4 : MCVersion(
         "81841A2FEDFE0CE19983156A06FA5294335284BEEB95C8CA872D3C1A5FCF5774",
         "B5F598584EE44B592D35856332495850B6083CE11F4F6928B4F078E14F23FB53",
         "https://s3.amazonaws.com/Minecraft.Download/versions/1.6.4/minecraft_server.1.6.4.jar",
-        null
+        javaClass<fr.ribesg.bukkit.pure.minecraft.r1_6_4.ProxyChunkGenerator>()
     )
 
     /**

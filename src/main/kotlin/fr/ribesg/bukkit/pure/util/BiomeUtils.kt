@@ -21,7 +21,7 @@ object BiomeUtils {
             fixedInput = fixedInput.replace("+", " Plus")
         }
         if (fixedInput.contains(" ")) {
-            return BiomeUtils.specialCase(fixedInput.toUpperCase().replace(' ', '_'))
+            return BiomeUtils.fixedName(fixedInput.toUpperCase().replace(' ', '_'))
         }
         val builder = StringBuilder()
         val chars = input.toCharArray()
@@ -33,12 +33,18 @@ object BiomeUtils {
                 builder.append(Character.toUpperCase(chars[i]))
             }
         }
-        return BiomeUtils.specialCase(builder.toString())
+        return BiomeUtils.fixedName(builder.toString())
     }
 
-    private fun specialCase(input: String): String = when (input) {
+    private fun fixedName(input: String): String = when (input) {
+    // Biomes with different name in MC than in Bukkit
         "MUSHROOM_ISLAND_SHORE" -> "MUSHROOM_SHORE"
         "THE_END"               -> "SKY"
+
+    // Biome no longer supported in Bukkit Final
+        "EXTREME_HILLS_EDGE"    -> "EXTREME_HILLS" // MC 1.6.4
+
+    // For other cases, just return what has been passed
         else                    -> input
     }
 }
