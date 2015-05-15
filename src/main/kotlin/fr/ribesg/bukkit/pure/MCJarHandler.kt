@@ -2,13 +2,11 @@ package fr.ribesg.bukkit.pure
 
 import fr.ribesg.bukkit.pure.util.FileUtils
 import fr.ribesg.bukkit.pure.util.HashUtils
-import java.io.IOException
 import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.EnumMap
-import kotlin.platform.platformStatic
 
 /**
  * Loads and relocate classes of the Minecraft Server.
@@ -89,7 +87,7 @@ object MCJarHandler {
             // Relocate the jar classes packages and put that into our remapped jar file
             if (!Files.exists(remappedJarPath)) {
                 // Doesn't exist, just relocate it
-                Pure.logger().info("Relocating jar file classes (this takes time!)...")
+                Pure.logger().info("Relocating jar file classes (this can take up to 5 minutes on a slow PC!)...")
                 FileUtils.relocateJarContent(jarPath, remappedJarPath, version, checkHash)
                 Pure.logger().info("Done relocating jar file classes!")
             } else if (checkHash) {
