@@ -17,7 +17,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
-import kotlin.platform.platformStatic
 
 /**
  * Used to download things.
@@ -39,7 +38,7 @@ object FileUtils {
      * @return the path to the downloaded file
      */
     fun download(destFolder: Path, srcUrl: URL, fileName: String, wantedHash: String?): Path {
-        Pure.logger().entering(FileUtils::class.simpleName, "download")
+        Pure.logger().entering(FileUtils.javaClass.getName(), "download")
 
         if ((!Files.exists(destFolder) || !Files.isDirectory(destFolder)) && !destFolder.toFile().mkdirs()) {
             throw IOException("Folder " + destFolder.toString() + " doesn't exist and cannot be created")
@@ -77,12 +76,12 @@ object FileUtils {
                 if (attempt == FileUtils.MAX_DOWNLOAD_ATTEMPS) {
                     throw IOException("Failed to download file", e)
                 } else {
-                    Pure.logger().throwing(FileUtils::class.simpleName, "download", e)
+                    Pure.logger().throwing(FileUtils.javaClass.getName(), "download", e)
                 }
             }
         }
 
-        Pure.logger().exiting(FileUtils::class.simpleName, "download")
+        Pure.logger().exiting(FileUtils.javaClass.getName(), "download")
 
         return finalFile.toPath()
     }
@@ -98,7 +97,7 @@ object FileUtils {
      * @throws IOException if anything goes wrong
      */
     fun relocateJarContent(inputJar: Path, outputJar: Path, version: MCVersion, checkHash: Boolean) {
-        Pure.logger().entering(FileUtils::class.simpleName, "relocateJarContent")
+        Pure.logger().entering(FileUtils.javaClass.getName(), "relocateJarContent")
 
         val prefix = version.name().toLowerCase()
         val rulesFilePath = inputJar.toAbsolutePath().toString() + ".tmp"
@@ -181,7 +180,7 @@ object FileUtils {
             }
         }
 
-        Pure.logger().exiting(FileUtils::class.simpleName, "relocateJarContent")
+        Pure.logger().exiting(FileUtils.javaClass.getName(), "relocateJarContent")
     }
 
     /**
