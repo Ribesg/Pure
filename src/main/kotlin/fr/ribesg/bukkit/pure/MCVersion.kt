@@ -1,10 +1,10 @@
-package fr.ribesg.bukkit.pure;
+package fr.ribesg.bukkit.pure
 
-import org.bukkit.World.Environment;
-import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.World.Environment
+import org.bukkit.generator.ChunkGenerator
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.MalformedURLException
+import java.net.URL
 
 /**
  * Lists Minecraft versions, with hashes of and links to their jar files.

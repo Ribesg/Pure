@@ -41,8 +41,6 @@ object MCJarHandler {
      *
      * @throws IOException if anything goes wrong
      */
-    platformStatic
-    throws(javaClass<IOException>())
     fun require(version: MCVersion, checkHash: Boolean) {
         Pure.logger().entering(MCJarHandler.javaClass.getName(), "require")
 

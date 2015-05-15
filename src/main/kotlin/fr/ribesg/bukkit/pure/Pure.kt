@@ -39,7 +39,6 @@ class Pure : JavaPlugin() {
          *
          * @return the data folder of the Pure Bukkit plugin
          */
-        platformStatic
         public fun getFolder(): File = this.instance?.getDataFolder() ?: File("")
 
         /**
@@ -69,7 +68,7 @@ class Pure : JavaPlugin() {
             return null
         }
 
-        val split = id.split(",");
+        val split = id.split(",")
         if (split.size() > 2) {
             logger().severe("Invalid id: " + id)
             return null

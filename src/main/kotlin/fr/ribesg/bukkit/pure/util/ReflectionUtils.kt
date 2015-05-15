@@ -1,14 +1,15 @@
-package fr.ribesg.bukkit.pure.util;
+package fr.ribesg.bukkit.pure.util
 
-import org.objenesis.ObjenesisStd;
+import org.objenesis.ObjenesisStd
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
+import kotlin.platform.platformStatic
 
 /**
  * @author Ribesg
  */
-public final class ReflectionUtils {
+object ReflectionUtils {
 
     /**
      * Creates a new instance of the provided class without calling any
@@ -19,10 +20,9 @@ public final class ReflectionUtils {
      *
      * @return an instance of the provided class
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T newInstance(final Class<T> clazz) {
-        return new ObjenesisStd().newInstance(clazz);
-    }
+    platformStatic
+    SuppressWarnings("unchecked")
+    fun <T> newInstance(clazz: Class<T>): T = ObjenesisStd().newInstance(clazz)
 
     /**
      * Sets the provided field to the provided value in the provided instance
@@ -35,18 +35,20 @@ public final class ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    public static void set(final Class<?> clazz, final Object obj, final String fieldName, final Object value) throws ReflectiveOperationException {
-        final Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
+    platformStatic
+    throws(javaClass<ReflectiveOperationException>())
+    fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
+        val field = clazz.getDeclaredField(fieldName)
+        field.setAccessible(true)
 
         if (Modifier.isFinal(field.getModifiers())) {
             // Field is final, work around it
-            final Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            val modifiersField = javaClass<Field>().getDeclaredField("modifiers")
+            modifiersField.setAccessible(true)
+            modifiersField.setInt(field, field.getModifiers() and Modifier.FINAL.inv())
         }
 
-        field.set(obj, value);
+        field.set(obj, value)
     }
 
     /**
@@ -63,9 +65,11 @@ public final class ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    public static <T> T get(final Class<?> clazz, final Object obj, final String fieldName, final Class<T> fieldClass) throws ReflectiveOperationException {
-        final Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        return fieldClass.cast(field.get(obj));
+    platformStatic
+    throws(javaClass<ReflectiveOperationException>())
+    fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
+        val field = clazz.getDeclaredField(fieldName)
+        field.setAccessible(true)
+        return fieldClass.cast(field.get(obj))
     }
 }

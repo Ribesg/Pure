@@ -10,6 +10,8 @@ In the end, this will allow multiple cool things:
 * Keep the previous version World Generator for your Minecraft map while updating to the next version
 * Have multiple maps with different Minecraft versions World Generators on the same server
 
+It is written in [Kotlin]. The parts interacting with obfuscated Minecraft classes are in Java for clarity.
+
 ## How
 
 The plugin downloads the required Minecraft Server jar files from their official repository on Amazon S3.
@@ -43,9 +45,9 @@ implementation of Minecraft 1.7.10 found in [VanillaGenerator]. I understood it,
 fixed it. I added generated chests support among other things.
 
 [Glowstone]: //www.glowstone.net
+[Kotlin]: //kotlinlang.org
 [Pure-lib]: //github.com/Ribesg/Pure-lib
 [Pure-old]: //github.com/Ribesg/Pure-old
 [coelho]: //github.com/coelho
 [VanillaGenerator]: //github.com/coelho/VanillaGenerator
 [VanillaNMS]: //github.com/coelho/VanillaGenerator
-
