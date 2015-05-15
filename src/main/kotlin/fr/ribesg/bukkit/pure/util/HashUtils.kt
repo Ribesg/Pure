@@ -1,7 +1,6 @@
 package fr.ribesg.bukkit.pure.util
 
 import fr.ribesg.bukkit.pure.Pure
-import java.io.IOException
 import java.io.RandomAccessFile
 import java.nio.file.Path
 import java.security.MessageDigest

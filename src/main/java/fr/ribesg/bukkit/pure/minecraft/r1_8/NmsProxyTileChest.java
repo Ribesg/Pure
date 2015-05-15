@@ -78,11 +78,10 @@ public class NmsProxyTileChest extends bcr {
      */
     private void addMcEnchant(final EnchantmentStorageMeta meta, final fn enchNbt) {
         try {
-            Pure.logger().info(enchNbt.toString());
             // Here we are not using (fn.e(String)) because it does not fail correctly:
             // it returns 0 instead of throwing an exception.
             // Instead, we use (gb.e()). This way either the cast will fail or a NPE will be thrown.
-            final short enchId = ((gb) enchNbt.a("net/minecraft/server/r1_7_10/id")).e();
+            final short enchId = ((gb) enchNbt.a("r1_8/et/minecraft/server/id")).e();
             final short enchLvl = ((gb) enchNbt.a("lvl")).e();
             @SuppressWarnings("deprecation")
             final Enchantment ench = Enchantment.getById(enchId);
