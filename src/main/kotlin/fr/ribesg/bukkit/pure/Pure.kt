@@ -1,6 +1,10 @@
 package fr.ribesg.bukkit.pure
 
 import org.bukkit.World
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -55,6 +59,21 @@ class Pure : JavaPlugin() {
     override fun onEnable() {
         instance = this
         this.metrics = PureMetrics(this)
+
+        // XXX For debugging that snow bug in 1.6.4
+        this.getServer().getPluginManager().registerEvents(object : Listener {
+            EventHandler
+            fun onPlayerInteract(event: PlayerInteractEvent) {
+                val b = when (event.getAction()) {
+                    Action.LEFT_CLICK_BLOCK  -> event.getClickedBlock()
+                    Action.RIGHT_CLICK_BLOCK -> event.getClickedBlock().getRelative(event.getBlockFace())
+                    else                     -> null
+                }
+                if (b != null) {
+                    event.getPlayer().sendMessage(b.getType().name() + " - " + b.getData());
+                }
+            }
+        }, this)
     }
 
     override fun onDisable() {
