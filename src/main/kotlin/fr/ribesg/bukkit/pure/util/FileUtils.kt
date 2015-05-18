@@ -51,9 +51,9 @@ object FileUtils {
                 use(
                     Channels.newChannel(srcUrl.openStream()),
                     FileOutputStream(finalFile)
-                ) { source, out ->
+                ) { src, dst ->
                     Pure.logger().fine("Downloading " + srcUrl + " ...")
-                    out.getChannel().transferFrom(source, 0, Long.MAX_VALUE)
+                    dst.getChannel().transferFrom(src, 0, Long.MAX_VALUE)
                     if (wantedHash != null) {
                         Pure.logger().fine("Done! Checking hash...")
                         val hash = HashUtils.hashSha256(finalFile.toPath())
