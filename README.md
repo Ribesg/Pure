@@ -20,8 +20,31 @@ Finally, it loads the jar file and use its obfuscated content to provide a Bukki
 
 ## Status
 
-In its current state, Pure only supports Minecraft 1.7.10 and 1.8.0. More versions will be added in the
-future, including Minecraft Alpha and Beta versions.
+Implemented & planned Minecraft server versions:
+- [ ] Alpha 0.1.4 (MC Alpha 1.0.17)
+- [ ] Alpha 0.2.2.1 (MC Alpha 1.2)
+- [x] Alpha 0.2.8 (MC Alpha 1.2.6)
+- [ ] Beta 1.0.2
+- [ ] Beta 1.1.2
+- [ ] Beta 1.2.1
+- [ ] Beta 1.3.1
+- [ ] Beta 1.4.1
+- [ ] Beta 1.5.2
+- [ ] Beta 1.6.6
+- [ ] Beta 1.7.3
+- [ ] Beta 1.8.1
+- [ ] Release 1.0.1
+- [ ] Release 1.1.0
+- [ ] Release 1.2.5
+- [ ] Release 1.3.2
+- [ ] Release 1.4.7
+- [ ] Release 1.5.2
+- [x] Release 1.6.4 (Bug: [#3](https://github.com/Ribesg/Pure/issues/3))
+- [x] Release 1.7.10
+- [x] *Release 1.8.0*
+- [ ] Release 1.8.4
+
+If you want another version to be added to this list (and implemented), please [open an issue](https://github.com/Ribesg/Pure/issues/new).
 
 ## Repository
 
