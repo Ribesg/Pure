@@ -7,6 +7,7 @@ import fr.ribesg.bukkit.pure.use
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.net.Proxy
 import java.net.URL
 import java.nio.channels.Channels
 import java.nio.file.Files
@@ -26,6 +27,11 @@ import java.util.zip.ZipOutputStream
 object FileUtils {
 
     private val MAX_DOWNLOAD_ATTEMPTS = 5
+
+    /**
+     * Proxy used for downloads
+     */
+    public var proxy: Proxy? = null
 
     /**
      * Downloads a file.
@@ -49,7 +55,13 @@ object FileUtils {
         while (true) {
             try {
                 use(
-                    Channels.newChannel(srcUrl.openStream()),
+                    Channels.newChannel(
+                        if (proxy == null) {
+                            srcUrl.openStream()
+                        } else {
+                            srcUrl.openConnection(this.proxy!!).getInputStream()
+                        }
+                    ),
                     FileOutputStream(finalFile)
                 ) { src, dst ->
                     Pure.logger().fine("Downloading " + srcUrl + " ...")
