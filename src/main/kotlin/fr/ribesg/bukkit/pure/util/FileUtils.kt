@@ -25,7 +25,7 @@ import java.util.zip.ZipOutputStream
  */
 object FileUtils {
 
-    private val MAX_DOWNLOAD_ATTEMPS = 5
+    private val MAX_DOWNLOAD_ATTEMPTS = 5
 
     /**
      * Downloads a file.
@@ -73,12 +73,13 @@ object FileUtils {
                 break
             } catch(e: IOException) {
                 Pure.logger().warning("Attempt n°" + attempt + " failed!")
-                if (attempt == FileUtils.MAX_DOWNLOAD_ATTEMPS) {
+                if (attempt == FileUtils.MAX_DOWNLOAD_ATTEMPTS) {
                     throw IOException("Failed to download file", e)
                 } else {
                     Pure.logger().throwing(FileUtils.javaClass.getName(), "download", e)
                 }
             }
+            attempt++;
         }
 
         Pure.logger().exiting(FileUtils.javaClass.getName(), "download")
