@@ -26,6 +26,16 @@ enum class MCVersion {
     )
 
     /**
+     * Minecraft Beta 1.7.3 (2011-07-08)
+     */
+    B1_7_3 : MCVersion(
+        "033A127E4A25A60B038F15369C89305A3D53752242A1CFF11AE964954E79BA4D",
+        "AFF8849A9B625552045544925E578E70E0567BC5ED88834BE95DD8D9AC1F22B2",
+        "http://files.ribesg.fr/minecraft_server.jar/minecraft_server.b1.7.3.jar",
+        null
+    )
+
+    /**
      * Minecraft 1.2.5 (2012-03-29) TODO
      */
     R1_2_5 : MCVersion(

@@ -79,7 +79,11 @@
       </dependency>
 
       <!-- Beta -->
-      <!-- None yet -->
+      <dependency>
+         <groupId>net.minecraft.server</groupId>
+         <artifactId>b1_7_3</artifactId>
+         <version>b1.7.3</version>
+      </dependency>
 
       <!-- Release -->
       <dependency>
