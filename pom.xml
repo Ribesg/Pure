@@ -23,6 +23,10 @@
          <url>http://repo.bukkit.org/content/groups/public/</url>
       </repository>
       <repository>
+         <id>sponge-repo</id>
+         <url>http://repo.spongepowered.org/maven</url>
+      </repository>
+      <repository>
          <id>plugin-metrics</id>
          <url>http://repo.mcstats.org/content/repositories/public</url>
       </repository>
@@ -47,6 +51,11 @@
          <groupId>org.bukkit</groupId>
          <artifactId>bukkit</artifactId>
          <version>1.7.9-R0.2</version>
+      </dependency>
+      <dependency>
+         <groupId>org.spongepowered</groupId>
+         <artifactId>spongeapi</artifactId>
+         <version>2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>junit</groupId>
