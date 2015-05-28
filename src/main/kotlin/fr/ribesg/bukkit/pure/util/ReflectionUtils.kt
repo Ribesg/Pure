@@ -20,9 +20,8 @@ object ReflectionUtils {
      *
      * @return an instance of the provided class
      */
-    platformStatic
-    SuppressWarnings("unchecked")
-    fun <T> newInstance(clazz: Class<T>): T = ObjenesisStd().newInstance(clazz)
+    suppress("unchecked")
+    platformStatic fun <T> newInstance(clazz: Class<T>): T = ObjenesisStd().newInstance(clazz)
 
     /**
      * Sets the provided field to the provided value in the provided instance
@@ -35,9 +34,8 @@ object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    platformStatic
     throws(javaClass<ReflectiveOperationException>())
-    fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
+    platformStatic fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
         val field = clazz.getDeclaredField(fieldName)
         field.setAccessible(true)
 
@@ -65,9 +63,8 @@ object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    platformStatic
     throws(javaClass<ReflectiveOperationException>())
-    fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
+    platformStatic fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
         val field = clazz.getDeclaredField(fieldName)
         field.setAccessible(true)
         return fieldClass.cast(field.get(obj))

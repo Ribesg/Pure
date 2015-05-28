@@ -2,6 +2,7 @@ package fr.ribesg.bukkit.pure.minecraft.a0_2_8;
 
 import a0_2_8.net.minecraft.server.*;
 import fr.ribesg.bukkit.pure.Pure;
+import fr.ribesg.bukkit.pure.log.Log;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.*;
@@ -78,7 +79,7 @@ public class NmsProxyWorldServer extends ex implements Runnable {
             chest.a = this;
             return chest;
         } else {
-            Pure.logger().warning("NmsProxyWorldServer missing: " + blockState.getClass().getName());
+            Log.warn("NmsProxyWorldServer missing: " + blockState.getClass().getName());
         }
         return null;
     }
@@ -138,7 +139,7 @@ public class NmsProxyWorldServer extends ex implements Runnable {
 
     @Override
     public void b(final int arg0, final int arg1, final int arg2, final ay arg3) {
-        Pure.logger().warning("NmsProxyWorldServer missing: " + arg3);
+        Log.warn("NmsProxyWorldServer missing: " + arg3);
     }
 
     public void queue(final Runnable runnable) {

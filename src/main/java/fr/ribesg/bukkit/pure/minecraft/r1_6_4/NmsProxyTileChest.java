@@ -1,6 +1,7 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_6_4;
 
 import fr.ribesg.bukkit.pure.Pure;
+import fr.ribesg.bukkit.pure.log.Log;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;
@@ -84,12 +85,12 @@ public class NmsProxyTileChest extends ary /* TileEntityChest */ {
             @SuppressWarnings("deprecation")
             final Enchantment ench = Enchantment.getById(enchId);
             if (ench == null) {
-                Pure.logger().warning("Unknown Enchantment ID (" + enchId + "), ignored.");
+                Log.warn("Unknown Enchantment ID (" + enchId + "), ignored.");
             } else {
                 meta.addStoredEnchant(ench, enchLvl, false);
             }
         } catch (final ClassCastException | NullPointerException e) {
-            Pure.logger().log(Level.SEVERE, "Failed to add Enchantment to Enchanted Book, ignored.\nThe NBT was: " + enchNbt, e);
+            Log.error("Failed to add Enchantment to Enchanted Book, ignored.\nThe NBT was: " + enchNbt, e);
         }
     }
 }

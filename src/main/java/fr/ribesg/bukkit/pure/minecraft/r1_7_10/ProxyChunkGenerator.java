@@ -1,6 +1,7 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_7_10;
 
 import fr.ribesg.bukkit.pure.Pure;
+import fr.ribesg.bukkit.pure.log.Log;
 import fr.ribesg.bukkit.pure.util.BiomeUtils;
 import fr.ribesg.bukkit.pure.util.ReflectionUtils;
 import org.bukkit.World;
@@ -174,7 +175,7 @@ public class ProxyChunkGenerator extends ChunkGenerator {
             this.blockPopulator.nmsWorld = nmsWorld;
             this.blockPopulator.nmsChunkProvider = nmsChunkProvider;
         } catch (final ReflectiveOperationException e) {
-            Pure.logger().log(Level.SEVERE, "Error while initializing ProxyChunkGenerator", e);
+            Log.error("Error while initializing ProxyChunkGenerator", e);
             return false;
         }
         this.nmsInitialized = true;

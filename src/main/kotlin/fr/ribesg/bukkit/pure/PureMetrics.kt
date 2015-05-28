@@ -1,11 +1,11 @@
 package fr.ribesg.bukkit.pure
 
+import fr.ribesg.bukkit.pure.log.Log
 import org.bukkit.generator.ChunkGenerator
 import org.mcstats.Metrics
 import org.mcstats.Metrics.Plotter
 import java.io.IOException
 import java.util.WeakHashMap
-import java.util.logging.Level
 
 /**
  * Handles Metrics.
@@ -27,7 +27,7 @@ class PureMetrics(plugin: Pure) {
             this.createGraphs(metrics)
             metrics.start()
         } catch (e: IOException) {
-            Pure.logger().log(Level.SEVERE, "Failed to initialize Metrics", e)
+            Log.error("Failed to initialize Metrics", e)
         }
     }
 

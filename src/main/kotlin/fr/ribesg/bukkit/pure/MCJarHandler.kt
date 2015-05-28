@@ -1,11 +1,13 @@
 package fr.ribesg.bukkit.pure
 
+import fr.ribesg.bukkit.pure.log.Log
 import fr.ribesg.bukkit.pure.util.FileUtils
 import fr.ribesg.bukkit.pure.util.HashUtils
+import java.io.IOException
 import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.Files
-import java.nio.file.Paths
+import java.nio.file.Path
 import java.util.EnumMap
 
 /**
@@ -39,13 +41,12 @@ object MCJarHandler {
      *
      * @throws IOException if anything goes wrong
      */
-    fun require(version: MCVersion, checkHash: Boolean) {
-        Pure.logger().entering(MCJarHandler.javaClass.getName(), "require")
-
+    throws(javaClass<IOException>())
+    fun require(folder: Path, version: MCVersion, checkHash: Boolean) {
         if (!MCJarHandler.LOADED.get(version)!!) {
-            Pure.logger().info("Minecraft Version " + version.name() + " required for World Generation")
+            Log.info("Minecraft Version " + version.name() + " required for World Generation")
             // Find (and eventually create) our plugin's folder subfolder containing jar files (plugin/Pure/jars)
-            val jarContainerPath = Paths.get(Pure.getFolder().getAbsolutePath(), "jars")
+            val jarContainerPath = folder.resolve("jars")
             if (!Files.isDirectory(jarContainerPath)) {
                 Files.createDirectories(jarContainerPath)
             }
@@ -63,22 +64,22 @@ object MCJarHandler {
             // Download the Vanilla jar file
             if (!Files.exists(jarPath)) {
                 // Doesn't exist, just download it
-                Pure.logger().info("Downloading file " + version.getUrl() + " ...")
+                Log.info("Downloading file " + version.getUrl() + " ...")
                 FileUtils.download(
                     jarContainerPath,
                     version.getUrl(),
                     inputJarName,
                     if (checkHash) version.getVanillaHash() else null
                 )
-                Pure.logger().info("Done downloading file!")
+                Log.info("Done downloading file!")
             } else if (checkHash) {
                 // Already exists, check hash and redownload it if needed
-                Pure.logger().info("Hashing existing jar to make sure it's correct...")
+                Log.info("Hashing existing jar to make sure it's correct...")
                 val hash = HashUtils.hashSha256(jarPath)
                 if (version.getVanillaHash().equals(hash)) {
-                    Pure.logger().info("Vanilla jar hash correct!")
+                    Log.info("Vanilla jar hash correct!")
                 } else {
-                    Pure.logger().info("Invalid hash, redownloading file " + version.getUrl() + " ...")
+                    Log.info("Invalid hash, redownloading file " + version.getUrl() + " ...")
                     Files.delete(jarPath)
                     FileUtils.download(jarContainerPath, version.getUrl(), inputJarName, version.getVanillaHash())
                 }
@@ -87,17 +88,17 @@ object MCJarHandler {
             // Relocate the jar classes packages and put that into our remapped jar file
             if (!Files.exists(remappedJarPath)) {
                 // Doesn't exist, just relocate it
-                Pure.logger().info("Relocating jar file classes (this can take up to 5 minutes on a slow PC!)...")
+                Log.info("Relocating jar file classes (this can take up to 5 minutes on a slow PC!)...")
                 FileUtils.relocateJarContent(jarPath, remappedJarPath, version, checkHash)
-                Pure.logger().info("Done relocating jar file classes!")
+                Log.info("Done relocating jar file classes!")
             } else if (checkHash) {
                 // Already exists, check hash and remap if needed
-                Pure.logger().info("Hashing existing remapped jar to make sure it's correct...")
+                Log.info("Hashing existing remapped jar to make sure it's correct...")
                 val hash = HashUtils.hashSha256(remappedJarPath)
                 if (version.getRemappedHash().equals(hash)) {
-                    Pure.logger().info("Remapped jar hash correct!")
+                    Log.info("Remapped jar hash correct!")
                 } else {
-                    Pure.logger().info("Invalid hash, remapping file...")
+                    Log.info("Invalid hash, remapping file...")
                     Files.delete(remappedJarPath)
                     FileUtils.relocateJarContent(jarPath, remappedJarPath, version, true)
                 }
@@ -108,13 +109,10 @@ object MCJarHandler {
                 val addURL = javaClass<URLClassLoader>().getDeclaredMethod("addURL", javaClass<URL>())
                 addURL.setAccessible(true)
                 addURL.invoke(ClassLoader.getSystemClassLoader(), remappedJarPath.toFile().toURI().toURL())
-                Pure.logger().info("Minecraft Version " + version.name() + " ready!")
+                Log.info("Minecraft Version " + version.name() + " ready!")
             } catch (e: ReflectiveOperationException) {
-                Pure.logger().severe("Failed to load classes of " + remappedJarPath)
-                Pure.logger().throwing(MCJarHandler.javaClass.getCanonicalName(), "require", e)
+                Log.error("Failed to load classes of $remappedJarPath", e)
             }
         }
-
-        Pure.logger().exiting(MCJarHandler.javaClass.getName(), "require")
     }
 }

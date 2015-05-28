@@ -1,6 +1,7 @@
 package fr.ribesg.bukkit.pure.minecraft.r1_7_10;
 
 import fr.ribesg.bukkit.pure.Pure;
+import fr.ribesg.bukkit.pure.log.Log;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.*;
@@ -69,7 +70,7 @@ public class NmsProxyWorldServer extends mt /* WorldServer */ {
         } else if (blockState instanceof Chest) {
             return new NmsProxyTileChest((Chest) blockState);
         } else {
-            Pure.logger().warning("NmsProxyWorldServer missing: " + blockState.getClass().getName());
+            Log.warn("NmsProxyWorldServer missing: " + blockState.getClass().getName());
         }
         return null;
     }

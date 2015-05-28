@@ -2,7 +2,7 @@ package fr.ribesg.bukkit.pure.util.remap
 
 import fr.ribesg.bukkit.pure.MCJarHandler
 import fr.ribesg.bukkit.pure.MCVersion
-import fr.ribesg.bukkit.pure.Pure
+import fr.ribesg.bukkit.pure.log.Log
 import fr.ribesg.bukkit.pure.util.FileUtils
 import fr.ribesg.bukkit.pure.util.HashUtils
 import java.io.IOException
@@ -13,7 +13,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import java.util.logging.Level
+import java.util.logging.Logger
 
 /**
  * @author Ribesg
@@ -23,6 +23,12 @@ import java.util.logging.Level
  * Download, remap and hash all known MC version.
  */
 public fun main(args: Array<String>) {
+    // Default format is on 2 lines, it's horrible!
+    System.setProperty(
+        "java.util.logging.SimpleFormatter.format",
+        "[%1\$tY-%1\$tm-%1\$td %1\$tH:%1\$tM:%1\$tS] %4\$s: %5\$s%n"
+    )
+    Log.initJavaLogger(Logger.getLogger("RemapAllMain"))
     try {
         if (args.size() == 2) {
             val proxyUrl = args[0]
@@ -36,16 +42,16 @@ public fun main(args: Array<String>) {
             throw IllegalArgumentException("Usage: [proxyUrl proxyPort]")
         }
     } catch(e: IllegalArgumentException) {
-        Pure.logger().log(Level.SEVERE, "Invalid arguments", e)
+        Log.error("Invalid arguments", e)
     }
 
     val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1)
     for (v in MCVersion.values()) {
         executor.submit({
             try {
-                MCJarHandler.require(v, false)
+                MCJarHandler.require(Paths.get(""), v, false)
             } catch (e: IOException) {
-                Pure.logger().log(Level.SEVERE, "Failed to require " + v, e)
+                Log.error("Failed to require " + v, e)
             }
         })
         Thread.sleep(250)
@@ -54,7 +60,7 @@ public fun main(args: Array<String>) {
     executor.awaitTermination(5, TimeUnit.MINUTES)
     Files.newDirectoryStream(Paths.get("jars")).use { directory ->
         for (file in directory) {
-            Pure.logger().info(HashUtils.hashSha256(file) + " - " + file.getFileName())
+            Log.info(HashUtils.hashSha256(file) + " - " + file.getFileName())
         }
     }
 }

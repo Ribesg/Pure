@@ -2,7 +2,7 @@ package fr.ribesg.bukkit.pure.util
 
 import com.tonicsystems.jarjar.Main
 import fr.ribesg.bukkit.pure.MCVersion
-import fr.ribesg.bukkit.pure.Pure
+import fr.ribesg.bukkit.pure.log.Log
 import fr.ribesg.bukkit.pure.use
 import java.io.File
 import java.io.FileOutputStream
@@ -31,7 +31,7 @@ object FileUtils {
     /**
      * Proxy used for downloads
      */
-    public var proxy: Proxy? = null
+    var proxy: Proxy? = null
 
     /**
      * Downloads a file.
@@ -44,8 +44,6 @@ object FileUtils {
      * @return the path to the downloaded file
      */
     fun download(destFolder: Path, srcUrl: URL, fileName: String, wantedHash: String?): Path {
-        Pure.logger().entering(FileUtils.javaClass.getName(), "download")
-
         if ((!Files.exists(destFolder) || !Files.isDirectory(destFolder)) && !destFolder.toFile().mkdirs()) {
             throw IOException("Folder " + destFolder.toString() + " doesn't exist and cannot be created")
         }
@@ -64,37 +62,35 @@ object FileUtils {
                     ),
                     FileOutputStream(finalFile)
                 ) { src, dst ->
-                    Pure.logger().fine("Downloading " + srcUrl + " ...")
+                    Log.debug("Downloading $srcUrl ...")
                     dst.getChannel().transferFrom(src, 0, Long.MAX_VALUE)
                     if (wantedHash != null) {
-                        Pure.logger().fine("Done! Checking hash...")
+                        Log.debug("Done! Checking hash...")
                         val hash = HashUtils.hashSha256(finalFile.toPath())
                         if (hash.equals(wantedHash)) {
-                            Pure.logger().fine("The downloaded file is correct!")
+                            Log.debug("The downloaded file is correct!")
                         } else {
-                            Pure.logger().warning("The downloaded file is incorrect!")
+                            Log.warn("The downloaded file is incorrect!")
                             throw IOException(
                                 "Download file hash doesn't match awaited hash\n" +
-                                "Awaited: " + wantedHash + "\nReceived: " + hash
+                                "Awaited: $wantedHash\nReceived: $hash"
                             )
                         }
                     } else {
-                        Pure.logger().fine("Done!")
+                        Log.debug("Done!")
                     }
                 }
                 break
             } catch(e: IOException) {
-                Pure.logger().warning("Attempt n°" + attempt + " failed!")
+                Log.warn("Attempt n°$attempt failed!")
                 if (attempt == FileUtils.MAX_DOWNLOAD_ATTEMPTS) {
                     throw IOException("Failed to download file", e)
                 } else {
-                    Pure.logger().throwing(FileUtils.javaClass.getName(), "download", e)
+                    Log.debug("Error was: ", e)
                 }
             }
             attempt++;
         }
-
-        Pure.logger().exiting(FileUtils.javaClass.getName(), "download")
 
         return finalFile.toPath()
     }
@@ -110,8 +106,6 @@ object FileUtils {
      * @throws IOException if anything goes wrong
      */
     fun relocateJarContent(inputJar: Path, outputJar: Path, version: MCVersion, checkHash: Boolean) {
-        Pure.logger().entering(FileUtils.javaClass.getName(), "relocateJarContent")
-
         val prefix = version.name().toLowerCase()
         val rulesFilePath = inputJar.toAbsolutePath().toString() + ".tmp"
 
@@ -119,11 +113,11 @@ object FileUtils {
         val rulesFile = Paths.get(rulesFilePath).toFile()
         if (rulesFile.exists()) {
             if (!rulesFile.delete()) {
-                throw IOException("Failed to remove old rules file " + rulesFilePath)
+                throw IOException("Failed to remove old rules file $rulesFilePath")
             }
         }
         if (!rulesFile.createNewFile()) {
-            throw  IOException("Failed to create rules file " + rulesFilePath)
+            throw IOException("Failed to create rules file $rulesFilePath")
         }
 
         // Generate and write rules
@@ -140,14 +134,14 @@ object FileUtils {
 
                 if (!entryName.contains("META-INF")) {
                     if (entry.isDirectory()) {
-                        writer.write("rule " + entryName.replace('/', '.') + "* " + prefix + ".@0\n")
+                        writer.write("rule " + entryName.replace('/', '.') + "* $prefix.@0\n")
                     } else if (!entryName.contains("/") || entryName.startsWith("net/minecraft/server")) {
                         if (entryName.endsWith(".class")) {
                             val filteredName = entryName.replace(".class", "").replace('/', '.')
                             if (filteredName.contains(".")) {
-                                writer.write("rule " + filteredName + " " + prefix + ".@0\n")
+                                writer.write("rule $filteredName $prefix.@0\n")
                             } else {
-                                writer.write("rule " + filteredName + " " + prefix + ".net.minecraft.server.@0\n")
+                                writer.write("rule $filteredName $prefix.net.minecraft.server.@0\n")
                             }
                         }
                     }
@@ -157,14 +151,14 @@ object FileUtils {
 
         // Execute JarJar
         try {
-            Pure.logger().fine("Executing JarJar...")
+            Log.debug("Executing JarJar...")
             Main.main(array(
                 "process",
                 rulesFilePath,
                 inputJar.toString(),
                 outputJar.toString()
             ))
-            Pure.logger().fine("Done!")
+            Log.debug("Done!")
 
             // Remove junk in final jar
             FileUtils.removePrefixedBy(
@@ -177,7 +171,7 @@ object FileUtils {
                 val wantedHash = version.getRemappedHash()
                 val hash = HashUtils.hashSha256(outputJar)
                 if (hash.equals(wantedHash)) {
-                    Pure.logger().fine("The remapped file is correct!")
+                    Log.debug("The remapped file is correct!")
                 } else {
                     throw IOException(
                         "Remapped file hash doesn't match awaited hash\n" +
@@ -186,14 +180,12 @@ object FileUtils {
                 }
             }
         } catch (e: Exception) {
-            throw  IOException("Failed to execute JarJar", e)
+            throw IOException("Failed to execute JarJar", e)
         } finally {
             if (!rulesFile.delete()) {
-                Pure.logger().warning("Failed to remove rules file after execution")
+                Log.warn("Failed to remove rules file after execution")
             }
         }
-
-        Pure.logger().exiting(FileUtils.javaClass.getName(), "relocateJarContent")
     }
 
     /**
@@ -248,7 +240,7 @@ object FileUtils {
             }
         } finally {
             if (!tmp.toFile().delete()) {
-                Pure.logger().warning("Failed to remove tmp file after execution")
+                Log.warn("Failed to remove tmp file after execution")
             }
         }
     }

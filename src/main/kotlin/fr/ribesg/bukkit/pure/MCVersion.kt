@@ -1,5 +1,6 @@
 package fr.ribesg.bukkit.pure
 
+import fr.ribesg.bukkit.pure.log.Log
 import org.bukkit.World.Environment
 import org.bukkit.generator.ChunkGenerator
 
@@ -185,7 +186,7 @@ enum class MCVersion {
         } catch (ex: NoSuchMethodException) {
             try {
                 if (environment != null) {
-                    Pure.logger().warning("Ignored environment parameter for MC version " + this)
+                    Log.warn("Ignored environment parameter for MC version " + this)
                 }
                 this.chunkGeneratorClass?.getDeclaredConstructor()!!.newInstance()
             } catch (ex: NoSuchMethodException) {

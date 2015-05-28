@@ -31,8 +31,6 @@ object HashUtils {
      * @param filePath a file
      */
     fun hashSha256(filePath: Path): String {
-        Pure.logger().entering(javaClass<FileUtils>().getName(), "hashSha256")
-
         RandomAccessFile(filePath.toFile(), "r").use { file ->
             val digest = try {
                 MessageDigest.getInstance("SHA-256")
@@ -49,8 +47,6 @@ object HashUtils {
                 digest.update(buffer, 0, readSize)
                 lastIndex += readSize
             }
-
-            Pure.logger().exiting(javaClass<FileUtils>().getName(), "hashSha256")
 
             return HashUtils.bytesToHex(digest.digest())
         }
@@ -81,7 +77,6 @@ object HashUtils {
      *
      * @return a hash built from the two provided integers
      */
-    platformStatic
-    fun toLong(a: Int, b: Int): Long = (a shl 32).toLong() + b - Integer.MAX_VALUE
+    platformStatic fun toLong(a: Int, b: Int): Long = (a shl 32).toLong() + b - Integer.MAX_VALUE
 
 }
