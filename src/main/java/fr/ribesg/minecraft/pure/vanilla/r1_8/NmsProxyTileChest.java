@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.pure.vanilla.r1_8;
 
-import fr.ribesg.bukkit.pure.log.Log;
+import fr.ribesg.minecraft.pure.common.Log;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.enchantments.Enchantment;

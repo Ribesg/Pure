@@ -1,8 +1,8 @@
 package fr.ribesg.bukkit.pure.bukkit
 
-import fr.ribesg.bukkit.pure.MCJarHandler
-import fr.ribesg.bukkit.pure.MCVersion
-import fr.ribesg.bukkit.pure.log.Log
+import fr.ribesg.minecraft.pure.common.MCJarHandler
+import fr.ribesg.minecraft.pure.common.MCVersion
+import fr.ribesg.minecraft.pure.common.Log
 import org.bukkit.World.Environment
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

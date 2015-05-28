@@ -1,7 +1,7 @@
 package fr.ribesg.bukkit.pure.sponge
 
 import com.google.inject.Inject
-import fr.ribesg.bukkit.pure.log.Log
+import fr.ribesg.minecraft.pure.common.Log
 import org.slf4j.Logger
 import org.spongepowered.api.event.Subscribe
 import org.spongepowered.api.event.state.PreInitializationEvent

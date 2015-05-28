@@ -1,4 +1,4 @@
-package fr.ribesg.bukkit.pure.log
+package fr.ribesg.minecraft.pure.common
 
 import kotlin.platform.platformStatic as static
 

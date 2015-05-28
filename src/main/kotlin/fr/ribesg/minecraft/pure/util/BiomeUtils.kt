@@ -6,7 +6,7 @@ import kotlin.platform.platformStatic as static
  * @author coelho
  * @author Ribesg
  */
-object BiomeUtils {
+public object BiomeUtils {
 
     public static fun translateBiomeName(input: String): String {
         var fixedInput = input

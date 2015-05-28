@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.pure.vanilla.r1_7_10;
 
-import fr.ribesg.bukkit.pure.log.Log;
+import fr.ribesg.minecraft.pure.common.Log;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.*;

@@ -1,10 +1,10 @@
 package fr.ribesg.bukkit.pure.util.remap
 
-import fr.ribesg.bukkit.pure.MCJarHandler
-import fr.ribesg.bukkit.pure.MCVersion
-import fr.ribesg.bukkit.pure.log.Log
 import fr.ribesg.bukkit.pure.util.FileUtils
 import fr.ribesg.bukkit.pure.util.HashUtils
+import fr.ribesg.minecraft.pure.common.Log
+import fr.ribesg.minecraft.pure.common.MCJarHandler
+import fr.ribesg.minecraft.pure.common.MCVersion
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy

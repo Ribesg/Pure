@@ -1,7 +1,7 @@
 package fr.ribesg.bukkit.pure.bukkit
 
-import fr.ribesg.bukkit.pure.MCVersion
-import fr.ribesg.bukkit.pure.log.Log
+import fr.ribesg.minecraft.pure.common.MCVersion
+import fr.ribesg.minecraft.pure.common.Log
 import org.bukkit.generator.ChunkGenerator
 import org.mcstats.Metrics
 import java.io.IOException

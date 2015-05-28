@@ -1,10 +1,5 @@
-package fr.ribesg.bukkit.pure
+package fr.ribesg.minecraft.pure.common
 
-import fr.ribesg.bukkit.pure.log.Log
-import fr.ribesg.minecraft.pure.vanilla.a0_2_8
-import fr.ribesg.minecraft.pure.vanilla.r1_6_4
-import fr.ribesg.minecraft.pure.vanilla.r1_7_10.ProxyChunkGenerator
-import fr.ribesg.minecraft.pure.vanilla.r1_8
 import org.bukkit.World.Environment
 import org.bukkit.generator.ChunkGenerator
 import java.net.MalformedURLException
@@ -26,7 +21,7 @@ enum class MCVersion {
         "29BB180262250235131FB53F12D61F438D008620E1B428E372DBADEC731F5E09",
         "EBE3CF77CA4E7E3BE45A8B319AB9FE27CD51EEF734DD5CC16C763EE7A91526E8",
         "http://files.ribesg.fr/minecraft_server.jar/minecraft_server.a0.2.8.jar",
-        javaClass<a0_2_8.ProxyChunkGenerator>()
+        javaClass<fr.ribesg.minecraft.pure.vanilla.a0_2_8.ProxyChunkGenerator>()
     )
 
     /**
@@ -86,7 +81,7 @@ enum class MCVersion {
         "81841A2FEDFE0CE19983156A06FA5294335284BEEB95C8CA872D3C1A5FCF5774",
         "B5F598584EE44B592D35856332495850B6083CE11F4F6928B4F078E14F23FB53",
         "https://s3.amazonaws.com/Minecraft.Download/versions/1.6.4/minecraft_server.1.6.4.jar",
-        javaClass<r1_6_4.ProxyChunkGenerator>()
+        javaClass<fr.ribesg.minecraft.pure.vanilla.r1_6_4.ProxyChunkGenerator>()
     )
 
     /**
@@ -96,7 +91,7 @@ enum class MCVersion {
         "C70870F00C4024D829E154F7E5F4E885B02DD87991726A3308D81F513972F3FC",
         "AC886902C6357289ED76D651F03380ABC1835EFFB6953058202191A1E2BAC9DC",
         "http://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar",
-        javaClass<ProxyChunkGenerator>()
+        javaClass<fr.ribesg.minecraft.pure.vanilla.r1_7_10.ProxyChunkGenerator>()
     )
 
     /**
@@ -106,7 +101,7 @@ enum class MCVersion {
         "40E23F3823D6F0E3CBADC491CEDB55B8BA53F8AB516B68182DDD1536BABEB291",
         "950C597411A970CC3FCC59E3B04EDE6FCA78BB07D542BD56F077C85E9D45B0B8",
         "http://s3.amazonaws.com/Minecraft.Download/versions/1.8/minecraft_server.1.8.jar",
-        javaClass<r1_8.ProxyChunkGenerator>()
+        javaClass<fr.ribesg.minecraft.pure.vanilla.r1_8.ProxyChunkGenerator>()
     )
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -208,7 +203,7 @@ enum class MCVersion {
             MCVersion.valueOf(string.toUpperCase())
         } catch (e: IllegalArgumentException) {
             Log.error("Invalid MC version String: " + string.toUpperCase())
-            MCVersion.suggestVersionString(string.toUpperCase())
+            this.suggestVersionString(string.toUpperCase())
             null
         }
 

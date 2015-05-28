@@ -1,6 +1,6 @@
-package fr.ribesg.bukkit.pure
+package fr.ribesg.minecraft.pure.common
 
-import fr.ribesg.bukkit.pure.log.Log
+import fr.ribesg.minecraft.pure.common.Log
 import fr.ribesg.bukkit.pure.util.FileUtils
 import fr.ribesg.bukkit.pure.util.HashUtils
 import java.io.IOException
@@ -9,7 +9,6 @@ import java.net.URLClassLoader
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.EnumMap
-
 import kotlin.platform.platformStatic as static
 
 /**

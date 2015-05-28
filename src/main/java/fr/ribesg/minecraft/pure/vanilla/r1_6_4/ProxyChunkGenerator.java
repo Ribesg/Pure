@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.pure.vanilla.r1_6_4;
 
-import fr.ribesg.bukkit.pure.log.Log;
+import fr.ribesg.minecraft.pure.common.Log;
 import fr.ribesg.bukkit.pure.util.BiomeUtils;
 import fr.ribesg.bukkit.pure.util.ReflectionUtils;
 import org.bukkit.World;
