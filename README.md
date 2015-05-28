@@ -1,6 +1,6 @@
 # Pure [![Build Status](http://ci.ribesg.fr/job/Pure/badge/icon)](http://ci.ribesg.fr/job/Pure/)
 
-Pure is a World Generator Bukkit plugin.
+Pure is a World Generator Bukkit plugin, planning to become a Sponge plugin, too.
 
 It was created to provide a simple way to use Minecraft Vanilla world generation on non-Vanilla
 based Minecraft Server softwares like [Glowstone].
@@ -18,9 +18,11 @@ The plugin downloads the required Minecraft Server jar files from their official
 It then remaps the jar file content so that it doesn't clash with other versions.
 Finally, it loads the jar file and use its obfuscated content to provide a Bukkit World Generator.
 
+For now, I don't know how to do the same with Sponge.
+
 ## Status
 
-Implemented & planned Minecraft server versions:
+Implemented (for Bukkit) & planned Minecraft server versions:
 - [ ] Alpha 0.1.4 (MC Alpha 1.0.17)
 - [ ] Alpha 0.2.2.1 (MC Alpha 1.2)
 - [x] Alpha 0.2.8 (MC Alpha 1.2.6)
