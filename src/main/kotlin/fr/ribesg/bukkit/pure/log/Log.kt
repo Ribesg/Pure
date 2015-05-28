@@ -1,13 +1,13 @@
 package fr.ribesg.bukkit.pure.log
 
-import kotlin.platform.platformStatic
+import kotlin.platform.platformStatic as static
 
 /**
- * A static Logger using either a Java Logger and and slf4j Logger
+ * A static Logger using either a Java Logger or slf4j Logger
  *
  * @author Ribesg
  */
-object Log {
+public object Log {
 
     private enum class Level {
         DEBUG
@@ -20,45 +20,45 @@ object Log {
     private var javaLogger: java.util.logging.Logger? = null
     private var slf4jLogger: org.slf4j.Logger? = null
 
-    fun initJavaLogger(logger: java.util.logging.Logger) {
+    public static fun initJavaLogger(logger: java.util.logging.Logger) {
         // True if both are null only
         assert(javaLogger == slf4jLogger, "Logger already initialized!")
         this.javaLogger = logger
     }
 
-    fun initSlf4jLogger(logger: org.slf4j.Logger) {
+    public static fun initSlf4jLogger(logger: org.slf4j.Logger) {
         // True if both are null only
         assert(javaLogger == slf4jLogger, "Logger already initialized!")
         this.slf4jLogger = logger
     }
 
-    fun dereferenceLogger() {
+    public static fun dereferenceLogger() {
         this.javaLogger = null
         this.slf4jLogger = null
     }
 
-    platformStatic fun debug(msg: String): Unit
+    public static fun debug(msg: String): Unit
         = this.log(Level.DEBUG, msg)
 
-    platformStatic fun debug(msg: String, t: Throwable): Unit
+    public static fun debug(msg: String, t: Throwable): Unit
         = this.log(Level.DEBUG, msg, t)
 
-    platformStatic fun info(msg: String): Unit
+    public static fun info(msg: String): Unit
         = this.log(Level.INFO, msg)
 
-    platformStatic fun info(msg: String, t: Throwable): Unit
+    public static fun info(msg: String, t: Throwable): Unit
         = this.log(Level.INFO, msg, t)
 
-    platformStatic fun warn(msg: String): Unit
+    public static fun warn(msg: String): Unit
         = this.log(Level.WARN, msg)
 
-    platformStatic fun warn(msg: String, t: Throwable): Unit
+    public static fun warn(msg: String, t: Throwable): Unit
         = this.log(Level.WARN, msg, t)
 
-    platformStatic fun error(msg: String): Unit
+    public static fun error(msg: String): Unit
         = this.log(Level.ERROR, msg)
 
-    platformStatic fun error(msg: String, t: Throwable): Unit
+    public static fun error(msg: String, t: Throwable): Unit
         = this.log(Level.ERROR, msg, t)
 
     private fun log(level: Level, msg: String) {
