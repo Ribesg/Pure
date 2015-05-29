@@ -1,4 +1,4 @@
-package fr.ribesg.bukkit.pure
+package fr.ribesg.minecraft.pure
 
 import java.io.Closeable as X
 

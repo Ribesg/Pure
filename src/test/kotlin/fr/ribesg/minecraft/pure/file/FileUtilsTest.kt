@@ -1,6 +1,6 @@
-package fr.ribesg.pure.file
+package fr.ribesg.minecraft.pure.file
 
-import fr.ribesg.bukkit.pure.util.HashUtils
+import fr.ribesg.minecraft.pure.util.HashUtils
 import org.junit.Assert
 import org.junit.Test
 import java.io.IOException

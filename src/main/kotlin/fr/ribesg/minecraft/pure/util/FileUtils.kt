@@ -1,9 +1,9 @@
-package fr.ribesg.bukkit.pure.util
+package fr.ribesg.minecraft.pure.util
 
 import com.tonicsystems.jarjar.Main
 import fr.ribesg.minecraft.pure.common.MCVersion
 import fr.ribesg.minecraft.pure.common.Log
-import fr.ribesg.bukkit.pure.use
+import fr.ribesg.minecraft.pure.use
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

@@ -1,8 +1,8 @@
 package fr.ribesg.minecraft.pure.common
 
 import fr.ribesg.minecraft.pure.common.Log
-import fr.ribesg.bukkit.pure.util.FileUtils
-import fr.ribesg.bukkit.pure.util.HashUtils
+import fr.ribesg.minecraft.pure.util.FileUtils
+import fr.ribesg.minecraft.pure.util.HashUtils
 import java.io.IOException
 import java.net.URL
 import java.net.URLClassLoader

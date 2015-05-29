@@ -1,4 +1,4 @@
-package fr.ribesg.bukkit.pure.bukkit
+package fr.ribesg.minecraft.pure.bukkit
 
 import fr.ribesg.minecraft.pure.common.MCJarHandler
 import fr.ribesg.minecraft.pure.common.MCVersion

@@ -1,7 +1,7 @@
-package fr.ribesg.bukkit.pure.util.remap
+package fr.ribesg.minecraft.pure.util.remap
 
-import fr.ribesg.bukkit.pure.util.FileUtils
-import fr.ribesg.bukkit.pure.util.HashUtils
+import fr.ribesg.minecraft.pure.util.FileUtils
+import fr.ribesg.minecraft.pure.util.HashUtils
 import fr.ribesg.minecraft.pure.common.Log
 import fr.ribesg.minecraft.pure.common.MCJarHandler
 import fr.ribesg.minecraft.pure.common.MCVersion

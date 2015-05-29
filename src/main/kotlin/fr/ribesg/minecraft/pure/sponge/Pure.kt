@@ -1,4 +1,4 @@
-package fr.ribesg.bukkit.pure.sponge
+package fr.ribesg.minecraft.pure.sponge
 
 import com.google.inject.Inject
 import fr.ribesg.minecraft.pure.common.Log

@@ -1,4 +1,4 @@
-package fr.ribesg.bukkit.pure.util
+package fr.ribesg.minecraft.pure.util
 
 import java.io.RandomAccessFile
 import java.nio.file.Path
