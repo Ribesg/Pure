@@ -14,7 +14,7 @@
 
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <kotlin.version>0.11.91.4</kotlin.version>
+      <kotlin.version>0.12.200</kotlin.version>
    </properties>
 
    <repositories>

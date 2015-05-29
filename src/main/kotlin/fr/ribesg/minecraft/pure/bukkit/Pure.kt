@@ -1,8 +1,8 @@
 package fr.ribesg.minecraft.pure.bukkit
 
+import fr.ribesg.minecraft.pure.common.Log
 import fr.ribesg.minecraft.pure.common.MCJarHandler
 import fr.ribesg.minecraft.pure.common.MCVersion
-import fr.ribesg.minecraft.pure.common.Log
 import org.bukkit.World.Environment
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -51,7 +51,7 @@ public object Pure : JavaPlugin() {
             return null
         }
 
-        val split = id.split(",")
+        val split = id.splitBy(",")
         if (split.size() > 2) {
             Log.error("Invalid id: " + id)
             return null

@@ -1,10 +1,10 @@
 package fr.ribesg.minecraft.pure.util.remap
 
-import fr.ribesg.minecraft.pure.util.FileUtils
-import fr.ribesg.minecraft.pure.util.HashUtils
 import fr.ribesg.minecraft.pure.common.Log
 import fr.ribesg.minecraft.pure.common.MCJarHandler
 import fr.ribesg.minecraft.pure.common.MCVersion
+import fr.ribesg.minecraft.pure.util.FileUtils
+import fr.ribesg.minecraft.pure.util.HashUtils
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy

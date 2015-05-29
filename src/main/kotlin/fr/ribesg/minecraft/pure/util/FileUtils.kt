@@ -1,8 +1,8 @@
 package fr.ribesg.minecraft.pure.util
 
 import com.tonicsystems.jarjar.Main
-import fr.ribesg.minecraft.pure.common.MCVersion
 import fr.ribesg.minecraft.pure.common.Log
+import fr.ribesg.minecraft.pure.common.MCVersion
 import fr.ribesg.minecraft.pure.use
 import java.io.File
 import java.io.FileOutputStream
@@ -152,7 +152,7 @@ public object FileUtils {
         // Execute JarJar
         try {
             Log.debug("Executing JarJar...")
-            Main.main(array(
+            Main.main(arrayOf(
                 "process",
                 rulesFilePath,
                 inputJar.toString(),
@@ -217,7 +217,7 @@ public object FileUtils {
                 var ignore: Boolean
                 var entry: ZipEntry? = input.getNextEntry()
                 while (entry != null) {
-                    val entryName = entry!!.getName()
+                    val entryName = entry.getName()
                     ignore = false
                     for (prefix in prefixes) {
                         if (entryName.startsWith(prefix)) {
@@ -227,7 +227,7 @@ public object FileUtils {
                     }
                     if (!ignore) {
                         // Create entry in new file
-                        output.putNextEntry(ZipEntry(entry!!))
+                        output.putNextEntry(ZipEntry(entry))
                         // Copy content of entry to new file
                         read = input.read(buffer)
                         while (read > 0) {

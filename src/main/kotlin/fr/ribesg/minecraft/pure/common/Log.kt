@@ -10,10 +10,10 @@ import kotlin.platform.platformStatic as static
 public object Log {
 
     private enum class Level {
-        DEBUG
-        INFO
-        WARN
-        ERROR
+        DEBUG,
+        INFO,
+        WARN,
+        ERROR,
         FATAL
     }
 

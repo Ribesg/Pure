@@ -1,6 +1,5 @@
 package fr.ribesg.minecraft.pure.common
 
-import fr.ribesg.minecraft.pure.common.Log
 import fr.ribesg.minecraft.pure.util.FileUtils
 import fr.ribesg.minecraft.pure.util.HashUtils
 import java.io.IOException
@@ -42,7 +41,7 @@ public object MCJarHandler {
      *
      * @throws IOException if anything goes wrong
      */
-    throws(javaClass<IOException>())
+    throws(IOException::class)
     public static fun require(folder: Path, version: MCVersion, checkHash: Boolean) {
         if (!this.loadedVersions.get(version)!!) {
             Log.info("Minecraft Version " + version.name() + " required for World Generation")
@@ -53,7 +52,7 @@ public object MCJarHandler {
             }
 
             // Find jar file name from the Minecraft jar URL
-            val split = version.getUrl().toString().split("/")
+            val split = version.getUrl().toString().splitBy("/")
             val inputJarName = split[split.size() - 1]
 
             // Now we build the final (future?) Path of both our jar file and its remapped version on the file system

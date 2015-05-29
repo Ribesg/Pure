@@ -34,7 +34,7 @@ public object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    throws(javaClass<ReflectiveOperationException>())
+    throws(ReflectiveOperationException::class)
     public static fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
         val field = clazz.getDeclaredField(fieldName)
         field.setAccessible(true)
@@ -63,7 +63,7 @@ public object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    throws(javaClass<ReflectiveOperationException>())
+    throws(ReflectiveOperationException::class)
     public static fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
         val field = clazz.getDeclaredField(fieldName)
         field.setAccessible(true)
