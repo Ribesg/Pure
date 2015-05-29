@@ -1,6 +1,6 @@
 package fr.ribesg.minecraft.pure.vanilla.r1_7_10;
 
-import fr.ribesg.bukkit.pure.util.HashUtils;
+import fr.ribesg.minecraft.pure.util.HashUtils;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;

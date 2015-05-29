@@ -2,7 +2,7 @@ package fr.ribesg.minecraft.pure.vanilla.a0_2_8;
 
 import a0_2_8.net.minecraft.server.*;
 import fr.ribesg.minecraft.pure.common.Log;
-import fr.ribesg.bukkit.pure.util.ReflectionUtils;
+import fr.ribesg.minecraft.pure.util.ReflectionUtils;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.generator.BlockPopulator;
