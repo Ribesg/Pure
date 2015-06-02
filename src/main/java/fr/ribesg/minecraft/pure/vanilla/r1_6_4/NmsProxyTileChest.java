@@ -86,8 +86,12 @@ public class NmsProxyTileChest extends ary /* TileEntityChest */ {
             } else {
                 meta.addStoredEnchant(ench, enchLvl, false);
             }
-        } catch (final ClassCastException | NullPointerException e) {
-            Log.error("Failed to add Enchantment to Enchanted Book, ignored.\nThe NBT was: " + enchNbt, e);
+        } catch (final RuntimeException e) {
+            if (e instanceof ClassCastException || e instanceof NullPointerException) {
+                Log.error("Failed to add Enchantment to Enchanted Book, ignored.\nThe NBT was: " + enchNbt, e);
+            } else {
+                throw e;
+            }
         }
     }
 }

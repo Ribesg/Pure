@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class ProxyBlockPopulator extends BlockPopulator {
 
-    private final Map<Long, adr> nmsChunks = new HashMap<>();   // Map<Long, Chunk>
+    private final Map<Long, adr> nmsChunks = new HashMap<Long, adr>();   // Map<Long, Chunk>
     /*package */ ado                   nmsGenerator;            // IChunkProvider
     /*package */ abw                   nmsWorld;                // World
     /*package */ NmsDummyChunkProvider nmsChunkProvider;

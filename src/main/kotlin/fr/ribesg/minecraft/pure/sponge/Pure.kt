@@ -1,6 +1,7 @@
 package fr.ribesg.minecraft.pure.sponge
 
 import com.google.inject.Inject
+import fr.ribesg.minecraft.pure.PomData
 import fr.ribesg.minecraft.pure.common.Log
 import org.slf4j.Logger
 import org.spongepowered.api.event.Subscribe
@@ -11,7 +12,7 @@ import kotlin.properties.Delegates
 /**
  * @author Ribesg
  */
-Plugin(id = "Pure", name = "Pure", version = "maven-version-number")
+Plugin(id = PomData.ARTIFACT_ID, name = PomData.NAME, version = PomData.VERSION)
 public object Pure {
 
     Inject private val logger: Logger by Delegates.notNull()

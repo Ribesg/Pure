@@ -143,7 +143,7 @@ public class NmsProxyWorldServer extends ex implements Runnable {
 
     public void queue(final Runnable runnable) {
         if (this.queue == null) {
-            this.queue = new LinkedList<>();
+            this.queue = new LinkedList<Runnable>();
         }
         this.queue.add(runnable);
     }

@@ -15,6 +15,10 @@
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <kotlin.version>0.12.200</kotlin.version>
+
+      <!-- Shortcuts -->
+      <target>${project.build.directory}</target>
+      <src>${basedir}/src</src>
    </properties>
 
    <repositories>
@@ -161,6 +165,22 @@
       <defaultGoal>clean package</defaultGoal>
       <plugins>
          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>templating-maven-plugin</artifactId>
+            <version>1.0-alpha-3</version>
+            <executions>
+               <execution>
+                  <id>filter-src</id>
+                  <goals>
+                     <goal>filter-sources</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <outputDirectory>${target}/filtered-sources/java</outputDirectory>
+            </configuration>
+         </plugin>
+         <plugin>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
@@ -173,9 +193,10 @@
                   </goals>
                   <configuration>
                      <sourceDirs>
-                        <source>src/main/java</source>
-                        <source>src/main/kotlin</source>
-                        <source>src/main/resources</source>
+                        <source>${src}/main/java</source>
+                        <source>${target}/filtered-sources/java</source>
+                        <source>${src}/main/kotlin</source>
+                        <source>${src}/main/resources</source>
                      </sourceDirs>
                   </configuration>
                </execution>
@@ -187,9 +208,8 @@
                   </goals>
                   <configuration>
                      <sourceDirs>
-                        <!--source>src/test/java</source-->
-                        <source>src/test/kotlin</source>
-                        <!--source>src/test/resources</source-->
+                        <!--source>${src}/test/java</source-->
+                        <source>${src}/test/kotlin</source>
                      </sourceDirs>
                   </configuration>
                </execution>
@@ -199,8 +219,8 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.1</version>
             <configuration>
-               <source>1.7</source>
-               <target>1.7</target>
+               <source>1.6</source>
+               <target>1.6</target>
                <encoding>${project.build.sourceEncoding}</encoding>
             </configuration>
          </plugin>
@@ -280,7 +300,7 @@
                   <phase>package</phase>
                   <configuration>
                      <fileset>
-                        <directory>${project.build.directory}/${project.build.finalName}.jar</directory>
+                        <directory>${target}/${project.build.finalName}.jar</directory>
                         <includes>
                            <include>META-INF</include>
                         </includes>
@@ -295,12 +315,12 @@
                   <phase>package</phase>
                   <configuration>
                      <fileset>
-                        <directory>${basedir}/src/main</directory>
+                        <directory>${src}/main</directory>
                         <includes>
                            <include>java/**</include>
                            <include>kotlin/**</include>
                         </includes>
-                        <outputDirectory>${project.build.directory}/${project.build.finalName}.jar/sources
+                        <outputDirectory>${target}/${project.build.finalName}.jar/sources
                         </outputDirectory>
                      </fileset>
                   </configuration>

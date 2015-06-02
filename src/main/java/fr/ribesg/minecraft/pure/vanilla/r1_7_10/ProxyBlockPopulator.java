@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class ProxyBlockPopulator extends BlockPopulator {
 
-    private final Map<Long, apx> nmsChunks = new HashMap<>();   // Map<Long, Chunk>
+    private final Map<Long, apx> nmsChunks = new HashMap<Long, apx>();   // Map<Long, Chunk>
     /*package */ apu                   nmsGenerator;            // IChunkProvider
     /*package */ ahb                   nmsWorld;                // World
     /*package */ NmsDummyChunkProvider nmsChunkProvider;
