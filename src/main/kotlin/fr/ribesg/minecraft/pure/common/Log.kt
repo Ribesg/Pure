@@ -1,5 +1,6 @@
 package fr.ribesg.minecraft.pure.common
 
+import fr.ribesg.minecraft.pure.ノಠ益ಠノuoᴉʇdǝɔxƎ
 import kotlin.jvm.jvmOverloads as overloaded
 import kotlin.platform.platformStatic as static
 
@@ -51,26 +52,28 @@ public object Log {
         = this.log(Level.ERROR, msg, t)
 
     private fun log(level: Level, msg: String, t: Throwable?) {
-        if (t == null) {
-            if (this.javaLogger != null) {
+        if (this.javaLogger != null) {
+            if (t == null) {
                 this.javaLogger?.log(this.toJavaLoggerLevel(level), msg)
-            } else if (this.slf4jLogger != null) when (level) {
+            } else {
+                this.javaLogger?.log(this.toJavaLoggerLevel(level), msg, t)
+            }
+        } else if (this.slf4jLogger != null) {
+            if (t == null) when (level) {
                 Level.DEBUG -> this.slf4jLogger?.debug(msg)
                 Level.INFO  -> this.slf4jLogger?.info(msg)
                 Level.WARN  -> this.slf4jLogger?.warn(msg)
                 Level.ERROR -> this.slf4jLogger?.error(msg)
                 else        -> throw UnsupportedOperationException("Logging Level $level unsupported!")
-            }
-        } else {
-            if (this.javaLogger != null) {
-                this.javaLogger?.log(this.toJavaLoggerLevel(level), msg, t)
-            } else if (this.slf4jLogger != null) when (level) {
+            } else when (level) {
                 Level.DEBUG -> this.slf4jLogger?.debug(msg, t)
                 Level.INFO  -> this.slf4jLogger?.info(msg, t)
                 Level.WARN  -> this.slf4jLogger?.warn(msg, t)
                 Level.ERROR -> this.slf4jLogger?.error(msg, t)
                 else        -> throw UnsupportedOperationException("Logging Level $level unsupported!")
             }
+        } else {
+            throw ノಠ益ಠノuoᴉʇdǝɔxƎ("Tried to use Log while not initialized!")
         }
     }
 
