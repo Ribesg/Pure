@@ -1,6 +1,5 @@
 package fr.ribesg.minecraft.pure.common
 
-import fr.ribesg.minecraft.pure.ノಠ益ಠノuoᴉʇdǝɔxƎ
 import kotlin.jvm.jvmOverloads as overloaded
 import kotlin.platform.platformStatic as static
 
