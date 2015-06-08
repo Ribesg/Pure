@@ -73,7 +73,7 @@ public object Log {
                 else        -> throw UnsupportedOperationException("Logging Level $level unsupported!")
             }
         } else {
-            throw ノಠ益ಠノuoᴉʇdǝɔxƎ("Tried to use Log while not initialized!")
+            throw IllegalStateException("Tried to use Log while not initialized!")
         }
     }
 
