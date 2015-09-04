@@ -1,5 +1,7 @@
 # Pure [![Build Status](http://ci.ribesg.fr/job/Pure/badge/icon)](http://ci.ribesg.fr/job/Pure/)
 
+[![Join the chat at https://gitter.im/Ribesg/Pure](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Ribesg/Pure?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Pure is a World Generator Bukkit plugin, planning to become a Sponge plugin, too.
 
 It was created to provide a simple way to use Minecraft Vanilla world generation on non-Vanilla
