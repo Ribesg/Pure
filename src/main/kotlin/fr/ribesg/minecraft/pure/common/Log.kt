@@ -1,14 +1,11 @@
 package fr.ribesg.minecraft.pure.common
 
-import kotlin.jvm.jvmOverloads as overloaded
-import kotlin.platform.platformStatic as static
-
 /**
  * A static Logger using either a Java Logger or slf4j Logger
  *
  * @author Ribesg
  */
-public object Log {
+object Log {
 
     private enum class Level {
         DEBUG,
@@ -21,33 +18,40 @@ public object Log {
     private var javaLogger: java.util.logging.Logger? = null
     private var slf4jLogger: org.slf4j.Logger? = null
 
-    public static fun initJavaLogger(logger: java.util.logging.Logger) {
+    @JvmStatic
+    fun initJavaLogger(logger: java.util.logging.Logger) {
         // True if both are null only
-        assert(javaLogger == slf4jLogger, "Logger already initialized!")
+        assert(javaLogger == slf4jLogger) { "Logger already initialized!" }
         this.javaLogger = logger
     }
 
-    public static fun initSlf4jLogger(logger: org.slf4j.Logger) {
+    @JvmStatic
+    fun initSlf4jLogger(logger: org.slf4j.Logger) {
         // True if both are null only
-        assert(javaLogger == slf4jLogger, "Logger already initialized!")
+        assert(javaLogger == slf4jLogger) { "Logger already initialized!" }
         this.slf4jLogger = logger
     }
 
-    public static fun dereferenceLogger() {
+    @JvmStatic
+    fun dereferenceLogger() {
         this.javaLogger = null
         this.slf4jLogger = null
     }
 
-    public static overloaded fun debug(msg: String, t: Throwable? = null): Unit
+    @JvmStatic
+    @JvmOverloads fun debug(msg: String, t: Throwable? = null): Unit
         = this.log(Level.DEBUG, msg, t)
 
-    public static overloaded fun info(msg: String, t: Throwable? = null): Unit
+    @JvmStatic
+    @JvmOverloads fun info(msg: String, t: Throwable? = null): Unit
         = this.log(Level.INFO, msg, t)
 
-    public static overloaded fun warn(msg: String, t: Throwable? = null): Unit
+    @JvmStatic
+    @JvmOverloads fun warn(msg: String, t: Throwable? = null): Unit
         = this.log(Level.WARN, msg, t)
 
-    public static overloaded fun error(msg: String, t: Throwable? = null): Unit
+    @JvmStatic
+    @JvmOverloads fun error(msg: String, t: Throwable? = null): Unit
         = this.log(Level.ERROR, msg, t)
 
     private fun log(level: Level, msg: String, t: Throwable?) {

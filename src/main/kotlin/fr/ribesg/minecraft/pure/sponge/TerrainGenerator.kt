@@ -12,7 +12,7 @@ import org.spongepowered.api.world.gen.GeneratorPopulator
 /**
  * @author Ribesg
  */
-class TerrainGenerator(env: Environment, version: MCVersion) : GeneratorPopulator {
+internal class TerrainGenerator(env: Environment, version: MCVersion) : GeneratorPopulator {
 
     private val bukkitGenerator: ChunkGenerator
 
@@ -22,9 +22,9 @@ class TerrainGenerator(env: Environment, version: MCVersion) : GeneratorPopulato
 
     override fun populate(world: World?, buffer: MutableBlockBuffer?, biomes: BiomeBuffer?) {
         Log.info("Populating:")
-        Log.info("\tMin: ${buffer?.getBlockMin()}")
-        Log.info("\tMax: ${buffer?.getBlockMax()}")
-        Log.info("\tSize: ${buffer?.getBlockSize()}")
+        Log.info("\tMin: ${buffer?.blockMin}")
+        Log.info("\tMax: ${buffer?.blockMax}")
+        Log.info("\tSize: ${buffer?.blockSize}")
     }
 
 }

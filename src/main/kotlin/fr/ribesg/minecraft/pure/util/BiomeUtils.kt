@@ -1,14 +1,13 @@
 package fr.ribesg.minecraft.pure.util
 
-import kotlin.platform.platformStatic as static
-
 /**
  * @author coelho
  * @author Ribesg
  */
-public object BiomeUtils {
+object BiomeUtils {
 
-    public static fun translateBiomeName(input: String): String {
+    @JvmStatic
+    fun translateBiomeName(input: String): String {
         var fixedInput = input
         if (fixedInput.endsWith(" F")) {
             fixedInput = fixedInput.substring(0, input.length() - 1) + "Forest"

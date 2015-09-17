@@ -15,27 +15,30 @@ import java.io.IOException
 /**
  * @author Ribesg
  */
-public object Pure : JavaPlugin() {
+object Pure : JavaPlugin() {
 
     private var metrics: PureMetrics? = null
 
     override fun onEnable() {
-        Log.initJavaLogger(this.getLogger())
+        Log.initJavaLogger(this.logger)
 
         this.metrics = PureMetrics(this)
 
         // XXX For debugging that snow bug in 1.6.4
-        this.getServer().getPluginManager().registerEvents(object : Listener {
-            EventHandler fun onPlayerInteract(event: PlayerInteractEvent) {
-                val b = when (event.getAction()) {
-                    Action.LEFT_CLICK_BLOCK  -> event.getClickedBlock()
-                    Action.RIGHT_CLICK_BLOCK -> event.getClickedBlock().getRelative(event.getBlockFace())
+        this.server.pluginManager.registerEvents(object : Listener {
+
+            @EventHandler
+            fun onPlayerInteract(event: PlayerInteractEvent) {
+                val b = when (event.action) {
+                    Action.LEFT_CLICK_BLOCK  -> event.clickedBlock
+                    Action.RIGHT_CLICK_BLOCK -> event.clickedBlock.getRelative(event.blockFace)
                     else                     -> null
                 }
                 if (b != null) {
-                    event.getPlayer().sendMessage(b.getType().name() + " - " + b.getData());
+                    event.player.sendMessage(b.type.name() + " - " + b.data);
                 }
             }
+
         }, this)
     }
 
@@ -51,7 +54,7 @@ public object Pure : JavaPlugin() {
             return null
         }
 
-        val split = id.splitBy(",")
+        val split = id.split(",")
         if (split.size() > 2) {
             Log.error("Invalid id: " + id)
             return null
@@ -71,7 +74,7 @@ public object Pure : JavaPlugin() {
         }
 
         try {
-            MCJarHandler.require(this.getDataFolder().toPath().resolve("jars"), version, true)
+            MCJarHandler.require(this.dataFolder.toPath().resolve("jars"), version, true)
         } catch (e: IOException) {
             Log.error("Failed to install MC Version $version", e)
             return null

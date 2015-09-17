@@ -24,14 +24,14 @@ import java.util.zip.ZipOutputStream
  *
  * @author Ribesg
  */
-public object FileUtils {
+object FileUtils {
 
     private val MAX_DOWNLOAD_ATTEMPTS = 5
 
     /**
      * Proxy used for downloads
      */
-    public var proxy: Proxy? = null
+    var proxy: Proxy? = null
 
     /**
      * Downloads a file.
@@ -43,7 +43,7 @@ public object FileUtils {
      *
      * @return the path to the downloaded file
      */
-    public fun download(destFolder: Path, srcUrl: URL, fileName: String, wantedHash: String?): Path {
+    fun download(destFolder: Path, srcUrl: URL, fileName: String, wantedHash: String?): Path {
         if ((!Files.exists(destFolder) || !Files.isDirectory(destFolder)) && !destFolder.toFile().mkdirs()) {
             throw IOException("Folder " + destFolder.toString() + " doesn't exist and cannot be created")
         }
@@ -57,13 +57,13 @@ public object FileUtils {
                         if (proxy == null) {
                             srcUrl.openStream()
                         } else {
-                            srcUrl.openConnection(this.proxy!!).getInputStream()
+                            srcUrl.openConnection(this.proxy!!).inputStream
                         }
                     ),
                     FileOutputStream(finalFile)
                 ) { src, dst ->
                     Log.debug("Downloading $srcUrl ...")
-                    dst.getChannel().transferFrom(src, 0, Long.MAX_VALUE)
+                    dst.channel.transferFrom(src, 0, Long.MAX_VALUE)
                     if (wantedHash != null) {
                         Log.debug("Done! Checking hash...")
                         val hash = HashUtils.hashSha256(finalFile.toPath())
@@ -72,8 +72,7 @@ public object FileUtils {
                         } else {
                             Log.warn("The downloaded file is incorrect!")
                             throw IOException(
-                                "Download file hash doesn't match awaited hash\n" +
-                                "Awaited: $wantedHash\nReceived: $hash"
+                                "Download file hash doesn't match awaited hash\nAwaited: $wantedHash\nReceived: $hash"
                             )
                         }
                     } else {
@@ -105,7 +104,7 @@ public object FileUtils {
      *
      * @throws IOException if anything goes wrong
      */
-    public fun relocateJarContent(inputJar: Path, outputJar: Path, version: MCVersion, checkHash: Boolean) {
+    fun relocateJarContent(inputJar: Path, outputJar: Path, version: MCVersion, checkHash: Boolean) {
         val prefix = version.name().toLowerCase()
         val rulesFilePath = inputJar.toAbsolutePath().toString() + ".tmp"
 
@@ -130,10 +129,10 @@ public object FileUtils {
             var entryName: String
             while (enumeration.hasMoreElements()) {
                 entry = enumeration.nextElement()
-                entryName = entry.getName()
+                entryName = entry.name
 
                 if (!entryName.contains("META-INF")) {
-                    if (entry.isDirectory()) {
+                    if (entry.isDirectory) {
                         writer.write("rule " + entryName.replace('/', '.') + "* $prefix.@0\n")
                     } else if (!entryName.contains("/") || entryName.startsWith("net/minecraft/server")) {
                         if (entryName.endsWith(".class")) {
@@ -174,8 +173,7 @@ public object FileUtils {
                     Log.debug("The remapped file is correct!")
                 } else {
                     throw IOException(
-                        "Remapped file hash doesn't match awaited hash\n" +
-                        "Awaited: " + wantedHash + "\nReceived: " + hash
+                        "Remapped file hash doesn't match awaited hash\nAwaited: $wantedHash\nReceived: $hash"
                     )
                 }
             }
@@ -197,7 +195,7 @@ public object FileUtils {
      *
      * @throws IOException if anything goes wrong
      */
-    public fun removePrefixedBy(zip: Path, vararg prefixes: String) {
+    fun removePrefixedBy(zip: Path, vararg prefixes: String) {
         if (prefixes.size() == 0) {
             return // Nothing to do!
         }
@@ -215,9 +213,9 @@ public object FileUtils {
                 val buffer = ByteArray(1024)
                 var read: Int
                 var ignore: Boolean
-                var entry: ZipEntry? = input.getNextEntry()
+                var entry: ZipEntry? = input.nextEntry
                 while (entry != null) {
-                    val entryName = entry.getName()
+                    val entryName = entry.name
                     ignore = false
                     for (prefix in prefixes) {
                         if (entryName.startsWith(prefix)) {
@@ -235,7 +233,7 @@ public object FileUtils {
                             read = input.read(buffer)
                         }
                     }
-                    entry = input.getNextEntry()
+                    entry = input.nextEntry
                 }
             }
         } finally {

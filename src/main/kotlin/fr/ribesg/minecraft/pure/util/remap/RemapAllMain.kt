@@ -22,7 +22,7 @@ import java.util.logging.Logger
 /**
  * Download, remap and hash all known MC version.
  */
-public fun main(args: Array<String>) {
+fun main(args: Array<String>) {
     // Default format is on 2 lines, it's horrible!
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
@@ -47,13 +47,15 @@ public fun main(args: Array<String>) {
 
     val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1)
     for (v in MCVersion.values()) {
-        executor.submit({
-            try {
-                MCJarHandler.require(Paths.get(""), v, false)
-            } catch (e: IOException) {
-                Log.error("Failed to require " + v, e)
+        executor.submit(
+            {
+                try {
+                    MCJarHandler.require(Paths.get(""), v, false)
+                } catch (e: IOException) {
+                    Log.error("Failed to require " + v, e)
+                }
             }
-        })
+        )
         Thread.sleep(250)
     }
     executor.shutdown()

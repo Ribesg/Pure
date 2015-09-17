@@ -5,14 +5,14 @@ import fr.ribesg.minecraft.pure.common.MCVersion
 import org.bukkit.generator.ChunkGenerator
 import org.mcstats.Metrics
 import java.io.IOException
-import java.util.WeakHashMap
+import java.util.*
 
 /**
  * Handles Metrics.
  *
  * @author Ribesg
  */
-class PureMetrics(plugin: Pure) {
+internal class PureMetrics(plugin: Pure) {
 
     /**
      * Map of currently used World Generators and their version.

@@ -4,12 +4,11 @@ import org.objenesis.ObjenesisStd
 
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import kotlin.platform.platformStatic as static
 
 /**
  * @author Ribesg
  */
-public object ReflectionUtils {
+object ReflectionUtils {
 
     /**
      * Creates a new instance of the provided class without calling any
@@ -20,8 +19,9 @@ public object ReflectionUtils {
      *
      * @return an instance of the provided class
      */
-    suppress("unchecked")
-    public static fun <T> newInstance(clazz: Class<T>): T = ObjenesisStd().newInstance(clazz)
+    @Suppress("unchecked")
+    @JvmStatic
+    fun <T> newInstance(clazz: Class<T>): T = ObjenesisStd().newInstance(clazz)
 
     /**
      * Sets the provided field to the provided value in the provided instance
@@ -34,16 +34,17 @@ public object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    throws(ReflectiveOperationException::class)
-    public static fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
+    @Throws(ReflectiveOperationException::class)
+    @JvmStatic
+    fun set(clazz: Class<*>, obj: Any?, fieldName: String, value: Any?) {
         val field = clazz.getDeclaredField(fieldName)
-        field.setAccessible(true)
+        field.isAccessible = true
 
-        if (Modifier.isFinal(field.getModifiers())) {
+        if (Modifier.isFinal(field.modifiers)) {
             // Field is final, work around it
-            val modifiersField = javaClass<Field>().getDeclaredField("modifiers")
-            modifiersField.setAccessible(true)
-            modifiersField.setInt(field, field.getModifiers() and Modifier.FINAL.inv())
+            val modifiersField = Field::class.java.getDeclaredField("modifiers")
+            modifiersField.isAccessible = true
+            modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
         }
 
         field.set(obj, value)
@@ -63,10 +64,11 @@ public object ReflectionUtils {
      *
      * @throws ReflectiveOperationException if anything goes wrong
      */
-    throws(ReflectiveOperationException::class)
-    public static fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
+    @Throws(ReflectiveOperationException::class)
+    @JvmStatic
+    fun<T> get(clazz: Class<*>, obj: Any?, fieldName: String, fieldClass: Class<T>): T {
         val field = clazz.getDeclaredField(fieldName)
-        field.setAccessible(true)
+        field.isAccessible = true
         return fieldClass.cast(field.get(obj))
     }
 

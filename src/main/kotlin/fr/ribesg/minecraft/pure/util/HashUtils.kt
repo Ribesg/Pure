@@ -4,7 +4,6 @@ import java.io.RandomAccessFile
 import java.nio.file.Path
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import kotlin.platform.platformStatic as static
 
 /**
  * Used to hash things.
@@ -12,7 +11,7 @@ import kotlin.platform.platformStatic as static
  * @author Ribesg
  * @author coelho
  */
-public object HashUtils {
+object HashUtils {
 
     /**
      * Buffer for file reading. Set to 1 Mo.
@@ -29,7 +28,7 @@ public object HashUtils {
      *
      * @param filePath a file
      */
-    public fun hashSha256(filePath: Path): String {
+    fun hashSha256(filePath: Path): String {
         RandomAccessFile(filePath.toFile(), "r").use { file ->
             val digest = try {
                 MessageDigest.getInstance("SHA-256")
@@ -76,6 +75,7 @@ public object HashUtils {
      *
      * @return a hash built from the two provided integers
      */
-    public static fun toLong(a: Int, b: Int): Long = (a shl 32).toLong() + b - Integer.MAX_VALUE
+    @JvmStatic
+    fun toLong(a: Int, b: Int): Long = (a shl 32).toLong() + b - Integer.MAX_VALUE
 
 }

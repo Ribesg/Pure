@@ -7,20 +7,19 @@ import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.EnumMap
-import kotlin.platform.platformStatic as static
+import java.util.*
 
 /**
  * Loads and relocate classes of the Minecraft Server.
  *
  * @author Ribesg
  */
-public object MCJarHandler {
+object MCJarHandler {
 
     private val loadedVersions: MutableMap<MCVersion, Boolean>
 
     init {
-        this.loadedVersions = EnumMap(javaClass<MCVersion>())
+        this.loadedVersions = EnumMap(MCVersion::class.java)
         for (v in MCVersion.values()) {
             this.loadedVersions.put(v, false)
         }
@@ -41,8 +40,9 @@ public object MCJarHandler {
      *
      * @throws IOException if anything goes wrong
      */
-    throws(IOException::class)
-    public static fun require(folder: Path, version: MCVersion, checkHash: Boolean) {
+    @Throws(IOException::class)
+    @JvmStatic
+    fun require(folder: Path, version: MCVersion, checkHash: Boolean) {
         if (!this.loadedVersions.get(version)!!) {
             Log.info("Minecraft Version " + version.name() + " required for World Generation")
             // Find (and eventually create) our plugin's folder subfolder containing jar files (plugin/Pure/jars)
@@ -52,7 +52,7 @@ public object MCJarHandler {
             }
 
             // Find jar file name from the Minecraft jar URL
-            val split = version.getUrl().toString().splitBy("/")
+            val split = version.getUrl().toString().split("/")
             val inputJarName = split[split.size() - 1]
 
             // Now we build the final (future?) Path of both our jar file and its remapped version on the file system
@@ -106,8 +106,8 @@ public object MCJarHandler {
 
             // Load the remapped jar using our current classloader
             try {
-                val addURL = javaClass<URLClassLoader>().getDeclaredMethod("addURL", javaClass<URL>())
-                addURL.setAccessible(true)
+                val addURL = URLClassLoader::class.java.getDeclaredMethod("addURL", URL::class.java)
+                addURL.isAccessible = true
                 addURL.invoke(ClassLoader.getSystemClassLoader(), remappedJarPath.toFile().toURI().toURL())
                 Log.info("Minecraft Version " + version.name() + " ready!")
             } catch (e: ReflectiveOperationException) {

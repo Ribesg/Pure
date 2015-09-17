@@ -11,9 +11,9 @@ import java.nio.file.Files
  *
  * @author Ribesg
  */
-public final class FileUtilsTest {
+final class FileUtilsTest {
 
-    Test
+    @Test
     public fun testHash() {
         val input = "Hello World!"
         val output = "7F83B1657FF1FC53B92DC18148A1D65DFC2D4B1FA3D677284ADDD200126D9069"

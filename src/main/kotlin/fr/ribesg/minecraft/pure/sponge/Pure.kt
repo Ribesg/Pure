@@ -17,20 +17,22 @@ import org.spongepowered.api.world.gen.WorldGeneratorModifier
 /**
  * @author Ribesg
  */
-Plugin(id = PomData.ARTIFACT_ID, name = PomData.NAME, version = PomData.VERSION)
-public object Pure {
+@Plugin(id = PomData.ARTIFACT_ID, name = PomData.NAME, version = PomData.VERSION)
+object Pure {
 
-    Inject private fun setupLogger(logger: Logger) {
+    @Inject
+    private fun setupLogger(logger: Logger) {
         Log.initSlf4jLogger(logger)
     }
 
-    Subscribe fun onWorldLoad(event: WorldLoadEvent) {
-        Log.info("Loading world ${event.getWorld().getName()}")
+    @Subscribe
+    internal fun onWorldLoad(event: WorldLoadEvent) {
+        Log.info("Loading world ${event.world.name}")
         val testGen = object : WorldGeneratorModifier {
             override fun modifyWorldGenerator(world: WorldCreationSettings?, settings: DataContainer?, generator: WorldGenerator?) {
-                generator?.getGeneratorPopulators()?.clear()
-                generator?.getPopulators()?.clear()
-                generator?.setBaseGeneratorPopulator(TerrainGenerator(Environment.NORMAL, MCVersion.R1_8))
+                generator?.generatorPopulators?.clear()
+                generator?.populators?.clear()
+                generator?.baseGeneratorPopulator = TerrainGenerator(Environment.NORMAL, MCVersion.R1_8)
             }
 
             override fun getId(): String? = "pure"
@@ -38,10 +40,10 @@ public object Pure {
             override fun getName(): String = "Pure"
         }
 
-        val world = event.getWorld()
-        val generator = world.getWorldGenerator()
+        val world = event.world
+        val generator = world.worldGenerator
         testGen.modifyWorldGenerator(null, null, generator)
-        world.setWorldGenerator(generator)
+        world.worldGenerator = generator
     }
 
 }
